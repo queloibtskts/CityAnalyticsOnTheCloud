@@ -16,19 +16,18 @@ tweet_count = 0
 # Input number of tweets to be downloaded
 n_tweets = 100
 
-key_word = ["covid-19", "coronavirus", "covid19", "covid", "virus", "social distance", "social distancing", "self-quarantine", "self quarantine"]
-#key_word = ["food", "yummy", "delicious"]
-#key_word = ["a", "b", "c", "d"]
+#key_word = ["covid-19", "coronavirus", "covid19", "covid", "virus", "social distance", "social distancing", "self-quarantine", "self quarantine", "india", "indian"]
+#key_word = ["food", "yummy", "delicious", "kitchen", "cafe", "restaurant"]
 
 class StdOutListener(StreamListener):
     """ A listener handles tweets that are received from the stream.
     This is a basic listener that just prints received tweets to stdout.
     """
+    '''
     def on_data(self, data):
         global tweet_count
         global n_tweets
         global stream
-
         if tweet_count < n_tweets:
             temp_data = json.loads(data)
             for word in key_word:
@@ -39,6 +38,20 @@ class StdOutListener(StreamListener):
         else:
             time.sleep(1)
             tweet_count = 0
+	'''
+    def on_data(self, data):
+        try:
+	        #global tweet_count
+	        #global n_tweets
+	        #global stream
+            print(data)
+	        #tweet_count += 1 
+        except BaseException as e:
+            print("BaseException occurs!!",e)
+            print(data)
+            return True
+        return True    
+
 
     def on_error(self, status):
         time.sleep(10)
@@ -53,5 +66,5 @@ if __name__ == '__main__':
     #stream.filter(locations=[109.59,-44.55,159.34,-11.05], is_async=True) 
     #track = ['COVID-19', 'coronavirus', 'hospital']
     #locations=[109.59,-44.55,159.34,-11.05]
-    stream.filter(locations=[109.59,-44.55,159.34,-11.05],languages=['en'], is_async=True)
-    #stream.filter(locations=[109.59,-44.55,159.34,-11.05],languages=['en'], is_async=True)
+    #stream.filter(locations=[106.698311,-45.075950, 155.949366, -10.755751 ],languages=['en'], is_async=True)
+    stream.filter(locations=[110.01,-45.02,160.82,-12.02],languages=['en'], is_async=True)
