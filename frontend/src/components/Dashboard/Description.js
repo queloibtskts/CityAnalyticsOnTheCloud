@@ -31,11 +31,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Orders() {
-  const classes = useStyles();
+export default function Description() {
+  const descriptionClasses = useStyles();
   return (
     <React.Fragment>
-      <Title>Recent Orders</Title>
+      <Title>Description and Analysis</Title>
       <Table size="small">
         <TableHead>
           <TableRow>
@@ -58,9 +58,9 @@ export default function Orders() {
           ))}
         </TableBody>
       </Table>
-      <div className={classes.seeMore}>
-        <Link color="primary" href="#" onClick={preventDefault}>
-          See more orders
+      <div className={descriptionClasses.seeMore} align="center">
+        <Link color="primary" href="#" onClick={preventDefault} >
+          See more analysis
         </Link>
       </div>
     </React.Fragment>
