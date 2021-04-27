@@ -1,7 +1,15 @@
+#!flask/bin/python
 from flask import Flask, jsonify, make_response
+# pip install couchdb
+import couchdb
 
 app = Flask(__name__)
 
+# couch db auth
+database = 'ccc_twitter_test'
+server = "localhost:5984"
+admin_username = "admin"
+admin_password = "12354"
 
 # Error Handling
 @app.errorhandler(400)
@@ -33,6 +41,17 @@ scenarios = [
         'done': False
     }
 ]
+
+    # connect to couch db
+    # server = couchdb.Server()
+    # server.resource.credentials = (admin_username, admin_password)
+    # db = server[database]
+    
+    # listener = CouchDBStreamListener(db)
+    
+    # stream = Stream(auth, listener)
+    # stream.filter(track = filterTerms, languages = ["en"])
+    # stream.stream_tweets()
 
 
 if __name__ == '__main__':
