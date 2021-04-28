@@ -15,11 +15,10 @@ admin_password = "12354"
 server = couchdb.Server()
 server.resource.credentials = (admin_username, admin_password)
 db = server[database]
-# view = db[0]
 
-# @app.route('/api/v1/scenarios', methods=['GET'])
-# def get_scenarios():
-#     return view
+@app.route('/api/v1/scenarios', methods=['GET'])
+def get_scenarios():
+    return db.name
 
 # Error Handling
 @app.errorhandler(400)
