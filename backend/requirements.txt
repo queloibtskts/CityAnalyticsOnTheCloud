@@ -6,3 +6,6 @@ MarkupSafe==0.23
 Werkzeug==0.9.6
 itsdangerous==0.24
 six==1.9.0
+Flask-CouchDB==0.2.1
+connexion==2.3.0
+CouchDB==1.2

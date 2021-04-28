@@ -11,6 +11,16 @@ server = "localhost:5984"
 admin_username = "admin"
 admin_password = "12354"
 
+# connect to couch db
+server = couchdb.Server()
+server.resource.credentials = (admin_username, admin_password)
+db = server[database]
+# view = db[0]
+
+# @app.route('/api/v1/scenarios', methods=['GET'])
+# def get_scenarios():
+#     return view
+
 # Error Handling
 @app.errorhandler(400)
 def bad_request():
@@ -22,12 +32,11 @@ def hello_world():
     return 'Hello World!'
 
 
-@app.route('/api/v1/scenarios', methods=['GET'])
-def get_scenarios():
-    return jsonify({'scenarios': scenarios})
+@app.route('/api/v1/samples', methods=['GET'])
+def get_samples():
+    return jsonify({'samples': samples})
 
-
-scenarios = [
+samples = [
     {
         'id': 1,
         'location': u'Melbourne',
@@ -41,18 +50,6 @@ scenarios = [
         'done': False
     }
 ]
-
-    # connect to couch db
-    # server = couchdb.Server()
-    # server.resource.credentials = (admin_username, admin_password)
-    # db = server[database]
-    
-    # listener = CouchDBStreamListener(db)
-    
-    # stream = Stream(auth, listener)
-    # stream.filter(track = filterTerms, languages = ["en"])
-    # stream.stream_tweets()
-
 
 if __name__ == '__main__':
     app.run()

@@ -1,6 +1,4 @@
 Setup
 -----
-
-- Install Python 3 and git.
-- Run `setup.sh` (Linux, OS X, Cygwin) or `setup.bat` (Windows)
-- Run `./app.py` to start the server (on Windows use `flask\Scripts\python app.py` instead)
+- Set up your Python3 environment, e.g. using virtualenv.
+- Install the required Python3 third-party packages (Flask, etc) using `pip install -r requirements.txt'.
