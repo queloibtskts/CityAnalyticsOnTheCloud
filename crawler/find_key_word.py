@@ -10,7 +10,7 @@ with open("word.txt", 'r') as f:
         text_list.append(line)
 
 id_list = []
-with open("tweets.json", 'r', encoding="utf-8") as f:
+with open("2021-04-19.json", 'r', encoding="utf-8") as f:
     for line in f:
         line = line.rstrip()
       
@@ -25,11 +25,11 @@ with open("tweets.json", 'r', encoding="utf-8") as f:
         
         id_str = data.split('"id_str":',1)[-1]
         id_str = id_str.split(', "text":')[0]
-        
-        if (id_str in id_list):
-        	continue
 
         for i in range(len(text)):
+            if (id_str in id_list):
+                continue
+
             if((text[i]+' '+text[(i+1)%len(text)]+' '+text[(i+2)%len(text)]+' '+text[(i+3)%len(text)]+' '+text[(i+4)%len(text)]) in text_list and is_in==False):
                 print(data)
                 is_in = True
