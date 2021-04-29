@@ -1,4 +1,4 @@
-from __future__ import absolute_import, print_function
+#from __future__ import absolute_import, print_function
 import tweepy
 from tweepy import OAuthHandler, Stream, StreamListener
 import json
@@ -7,21 +7,24 @@ import couchdb
 
 
 # Twitter api auth
-consumer_key="gAJAEIYlILzQuCpdEDKnIeLrj"
-consumer_secret="xHpwWfCFeHGAKFc6w94Kk5TFsWqlgYcqt82v1sFqbY0yYMt9am"
-access_token="1382217118658142211-uTL6uM6alWIAlCmErC12zuY3xQOAAI"
-access_token_secret="vTqn2fUSwH31aRDsS3kYvDKLuLEQZIGmtfDL57E1ba92N"
+consumer_key = "gAJAEIYlILzQuCpdEDKnIeLrj"
+consumer_secret = "xHpwWfCFeHGAKFc6w94Kk5TFsWqlgYcqt82v1sFqbY0yYMt9am"
+access_token = "1382217118658142211-uTL6uM6alWIAlCmErC12zuY3xQOAAI"
+access_token_secret = "vTqn2fUSwH31aRDsS3kYvDKLuLEQZIGmtfDL57E1ba92N"
 
 # couch db auth
-database = 'ccc_twitter_test'
+database = 'ccc_twitter_test6'  # australia any realtime tweet in english
 server = "localhost:5984"
+host = ''  # for remote db
+port = ''  # for remote db
 admin_username = "admin"
 admin_password = "12354"
 
-locations=[109.59,-44.55,159.34,-11.05] # Australia
-filterTerms = ["travel"]
+locations = [110.01, -45.02, 160.82, -12.02]  # Australia
+# filterTerms = [" "]
 WARNING_COLOUR = '\033[93m'
 END_COLOUR = '\033[0m'
+
 
 class CouchDBStreamListener(StreamListener):
     # ref: https://pmatigakis.wordpress.com/2012/12/01/twitter-data-mining-crawling-twitter/
@@ -39,19 +42,33 @@ class CouchDBStreamListener(StreamListener):
         
         if tweet:
             if tweet.__contains__('id') and tweet.__contains__("text"):
-                print("%s:      %s" % (tweet['user']['screen_name'], tweet['text']))
+                print(tweet)
                 
-                tweet['doc_type'] = "tweet"
+                tweet['doc_type'] = "tweet"  # partition key?
                 
                 self.db["tweet:%d" % tweet['id']] = tweet
                 
                 self.tweet_count += 1
-            elif not self.received_friend_ids and tweet.__contains__("friends"): #?
-                print("Got %d user ids" % len(tweet['friends'])) #?
-                self.received_friend_ids = True #?
+            elif not self.received_friend_ids and tweet.__contains__("friends"):  # ?
+                print("Got %d user ids" % len(tweet['friends']))  # ?
+                self.received_friend_ids = True  # ?
             else:
-                print(WARNING_COLOUR + "Received a response that is not a tweet" + END_COLOUR + " :      " + tweet)
+                print(
+                    WARNING_COLOUR + "Received a response that is not a tweet" + END_COLOUR + " :      " + tweet)
         return True
+
+
+def connect_to_couch_db_server(host, port, username, password):
+    secure_remote_server = couchdb.Server(
+        'http://' + username + ':' + password + '@' + host + ':' + port)
+    return secure_remote_server
+
+
+def connect_to_database(database_name, server):
+    try:
+        return server[database_name]
+    except:
+        return server.create(database_name)
 
 
 def main():
@@ -61,13 +78,13 @@ def main():
     # connect to couch db
     server = couchdb.Server()
     server.resource.credentials = (admin_username, admin_password)
-    db = server[database]
+    # server = connect_to_couch_db_server(host, port, admin_username, admin_password)
+    db = connect_to_database(database, server)
     
     listener = CouchDBStreamListener(db)
     
     stream = Stream(auth, listener)
-    stream.filter(track = filterTerms, languages = ["en"])
-    stream.stream_tweets()
+    stream.filter(locations = locations, languages = ["en"], is_async = True)
 
 if __name__=="__main__":
     main()
