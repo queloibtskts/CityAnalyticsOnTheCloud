@@ -24,7 +24,7 @@ with open("tweets.json", 'r', encoding="utf-8") as f:
         text = text.lower().split()
         
         id_str = data.split('"id_str":',1)[-1]
-        id_str = id_str.split(',"text":')[0]
+        id_str = id_str.split(', "text":')[0]
         
         if (id_str in id_list):
         	continue
