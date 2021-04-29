@@ -19,33 +19,42 @@ n_tweets = 100
 #key_word = ["covid-19", "coronavirus", "covid19", "covid", "virus", "social distance", "social distancing", "self-quarantine", "self quarantine", "india", "indian"]
 #key_word = ["food", "yummy", "delicious", "kitchen", "cafe", "restaurant"]
 
+
+
+text_list = []
+
+def open_txt():
+    with open("word.txt", 'r') as f:
+        for line in f:
+            line = line.strip('\t').strip()
+            text_list.append(line)
+            
+
+
 class StdOutListener(StreamListener):
-    """ A listener handles tweets that are received from the stream.
-    This is a basic listener that just prints received tweets to stdout.
-    """
-    '''
-    def on_data(self, data):
-        global tweet_count
-        global n_tweets
-        global stream
-        if tweet_count < n_tweets:
-            temp_data = json.loads(data)
-            for word in key_word:
-                if word in temp_data["text"].lower():
-                    print(data)
-                    tweet_count += 1
-                    return True
-        else:
-            time.sleep(1)
-            tweet_count = 0
-	'''
     def on_data(self, data):
         try:
-	        #global tweet_count
-	        #global n_tweets
-	        #global stream
-            print(data)
-	        #tweet_count += 1 
+            text = json.loads(data)['text']
+            #print(text)
+            text = text.lower().split()
+            
+            for i in range(len(text)):
+                if((text[i]+' '+text[(i+1)%len(text)]+' '+text[(i+2)%len(text)]+' '+text[(i+3)%len(text)]+' '+text[(i+4)%len(text)]) in text_list):
+                    print(data)
+                    break
+                elif((text[i]+' '+text[(i+1)%len(text)]+' '+text[(i+2)%len(text)]+' '+text[(i+3)%len(text)]) in text_list):
+                    print(data)
+                    break
+                elif((text[i]+' '+text[(i+1)%len(text)]+' '+text[(i+2)%len(text)]) in text_list):
+                    print(data)
+                    break
+                elif((text[i]+' '+text[(i+1)%len(text)]) in text_list):
+                    print(data)
+                    break
+                elif((text[i]) in text_list):
+                    print(data)
+                    break
+                    
         except BaseException as e:
             print("BaseException occurs!!",e)
             print(data)
@@ -58,9 +67,15 @@ class StdOutListener(StreamListener):
         print(status)
 
 if __name__ == '__main__':
+    open_txt()
+    #print(text_list[0])
     l = StdOutListener()
     auth = OAuthHandler(consumer_key, consumer_secret)
     auth.set_access_token(access_token, access_token_secret)
+    
+
+    # open file
+
 
     stream = Stream(auth, l)
     #stream.filter(locations=[109.59,-44.55,159.34,-11.05], is_async=True) 
