@@ -1,2 +1,4 @@
 # COMP90024_Assignment2
-# sudo ./run-nectar.sh
+  ### in your own ubuntu
+  ### cd /mrc
+    ### sudo ./run-nectar.sh
