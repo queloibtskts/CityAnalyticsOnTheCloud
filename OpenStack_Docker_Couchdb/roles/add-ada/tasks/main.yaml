@@ -1,0 +1,8 @@
+---
+- name: add ada
+  copy:
+    src: "config/ada.pem"
+    dest: ~/.ssh/ada
+#    owner: ubuntu
+#    group: ubuntu
+    mode: 0600
