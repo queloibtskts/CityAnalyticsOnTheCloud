@@ -1,4 +1,24 @@
 # Design Documents: Location
+## View: countTweetByStates
+curl -XGET "http://<username>:<password>@<hostIP>:5984/<dbName>/_design/<designDocumentName>/_view/countTweetByStates?group=true"
+
+e.g. curl -XGET "http://admin:12354@localhost:5984/ccc_twitter_test5/_design/location/_view/countTweetByStates?group=true"
+### Map
+```
+function (doc) {
+  var loc = doc.place.full_name.toLowerCase();
+  var loc2 = doc.user.location.toLowerCase();
+  var allLoc = ['victoria', 'act', 'new south wales', 'northern territory', 'queensland', 'tasmania', 'western australia', 'south australia'];
+  for (var i=0; i < allLoc.length; i++) {
+      if (loc.includes(allLoc[i]) || loc2.includes(allLoc[i])) {
+          emit(allLoc[i], 1);
+      }
+  }
+}
+```
+### Reduce
+_count
+
 
 ## View: victoria
 
