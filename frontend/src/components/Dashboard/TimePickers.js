@@ -32,7 +32,7 @@ const TimePickers = () => {
           id="datetime-local"
           label="FROM"
           type="datetime-local"
-          defaultValue="2017-05-24T10:30"
+          defaultValue="2021-05-01T10:30"
           className={timeClasses.textField}
           InputLabelProps={{
             shrink: true,
@@ -42,7 +42,7 @@ const TimePickers = () => {
           id="datetime-local"
           label="TO"
           type="datetime-local"
-          defaultValue="2017-05-24T10:30"
+          defaultValue="2021-05-03T10:30"
           className={timeClasses.textField}
           InputLabelProps={{
             shrink: true,

@@ -7,10 +7,10 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import DashboardIcon from '@material-ui/icons/Dashboard';
-import BarChartIcon from '@material-ui/icons/BarChart';
-import FastfoodIcon from '@material-ui/icons/Fastfood';
-import LocalHospitalIcon from '@material-ui/icons/LocalHospital';
-import SportsHandballIcon from '@material-ui/icons/SportsHandball';
+import SaveAltIcon from '@material-ui/icons/SaveAlt';
+import SpellcheckIcon from '@material-ui/icons/Spellcheck';
+import AccessTimeIcon from '@material-ui/icons/AccessTime';
+import EqualizerIcon from '@material-ui/icons/Equalizer';
 
 export const mainListItems = (
   <div>
@@ -25,7 +25,7 @@ export const mainListItems = (
     <Link to="/report">
       <ListItem button>
         <ListItemIcon>
-          <BarChartIcon />
+          <SaveAltIcon />
         </ListItemIcon>
         <ListItemText primary="Report" />
       </ListItem>
@@ -39,7 +39,7 @@ export const secondaryListItems = (
     <Link to="/scenario1">
       <ListItem button>
         <ListItemIcon>
-          <LocalHospitalIcon />
+          <EqualizerIcon />
         </ListItemIcon>
         <ListItemText primary="Scenario 1" />
       </ListItem>
@@ -47,7 +47,7 @@ export const secondaryListItems = (
     <Link to="/scenario2">
       <ListItem button>
         <ListItemIcon>
-          <SportsHandballIcon />
+        <AccessTimeIcon />
         </ListItemIcon>
         <ListItemText primary="Scenario 2" />
       </ListItem>
@@ -55,7 +55,7 @@ export const secondaryListItems = (
     <Link to="/scenario3">
     <ListItem button>
       <ListItemIcon>
-        <FastfoodIcon />
+        <SpellcheckIcon />
       </ListItemIcon>
       <ListItemText primary="Scenario 3" />
     </ListItem>

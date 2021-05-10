@@ -1,6 +1,7 @@
 Flask==0.10.1
 Flask-HTTPAuth==2.3.0
 Flask-RESTful==0.3.1
+Flask-Cors==3.0.10
 Jinja2==2.7.3
 MarkupSafe==0.23
 Werkzeug==0.9.6
@@ -9,3 +10,4 @@ six==1.9.0
 Flask-CouchDB==0.2.1
 connexion==2.3.0
 CouchDB==1.2
+textblob==0.8.1
