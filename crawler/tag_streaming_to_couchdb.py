@@ -2,13 +2,29 @@ import tweepy
 import json
 import couchdb
 import time
-server = couchdb.Server('http://admin:12345@127.0.0.1:5984/')
+import preprocessor as p
+p.set_options(p.OPT.URL, p.OPT.MENTION)  # remove URL and mentions in tweet text
 
-db = server['tweets']
+#db = server['tweets']
 
+def connect_to_database(database_name, server):
+    try:
+        return server[database_name]
+    except:
+        return server.create(database_name)
 
 database1 = 'vulgar_tweet_by_search'
 database2 = 'clean_tweet_by_search'
+
+# uncomment 5 lines below to connect to local db server
+# server = "localhost:5984"
+# admin_username = "admin"
+# admin_password = "12354"
+# server = couchdb.Server()
+# server.resource.credentials = (admin_username, admin_password)
+
+# connect to remote db server; comment 1 line below if connecting to local db server
+server = couchdb.Server('http://admin:12345@127.0.0.1:5984/')
 
 db1 = connect_to_database(database1, server)
 db2 = connect_to_database(database2, server)
@@ -43,6 +59,7 @@ class CouchDBStreamListener(tweepy.StreamListener):
     def on_data(self, data):
         try:
             text = json.loads(data)['text']
+            text = p.clean(text)
             text = text.lower().split()
             is_in = False
             vulgar_words_used = []
@@ -55,29 +72,29 @@ class CouchDBStreamListener(tweepy.StreamListener):
                     is_in = True
                     vulgar_words_used.append(text[i]+' '+text[(i+1)%len(text)]+' '+text[(i+2)%len(text)]+' '+text[(i+3)%len(text)])
                 
-
+    
                 elif((text[i]+' '+text[(i+1)%len(text)]+' '+text[(i+2)%len(text)]) in text_list):
                     is_in = True
                     vulgar_words_used.append(text[i]+' '+text[(i+1)%len(text)]+' '+text[(i+2)%len(text)])
-
-
+    
+    
                 elif((text[i]+' '+text[(i+1)%len(text)]) in text_list):
                     is_in = True
                     vulgar_words_used.append(text[i]+' '+text[(i+1)%len(text)])
-
-
+    
+    
                 elif((text[i]) in text_list):
                     is_in = True
                     vulgar_words_used.append(text[i])
-
+    
             data = json.loads(data)
             if is_in:
                 data['tag'] = {'vulgar_words': "True", 'vulgar_words_used': vulgar_words_used}
-                db1["tweet:%d" % data['id']] = json.dumps(data)
+                db1["tweet:%d" % data['id']] = data # error caused by saving json.dumps(data) to db
                 #print(json.dumps(data))
             else:
                 data['tag'] = {'vulgar_words': "False", 'vulgar_words_used': vulgar_words_used}
-                db2["tweet:%d" % data['id']] = json.dumps(data)
+                db2["tweet:%d" % data['id']] = data # error caused by saving json.dumps(data) to db
                 #print(json.dumps(data))
 
 
@@ -85,13 +102,7 @@ class CouchDBStreamListener(tweepy.StreamListener):
             print("BaseException occurs!!",e)
             print(data)
             return True
-        return True    
-
-        except BaseException as e:
-            print("BaseException occurs!!",e)
-            print(data)
-            return True
-        return True    
+        return True
 
     def on_error(self, status_code):
         print(status_code,"error")

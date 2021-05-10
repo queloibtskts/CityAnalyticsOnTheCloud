@@ -3,6 +3,8 @@ from tweepy import OAuthHandler, Stream, StreamListener
 import re
 import time
 import json
+import preprocessor as p
+p.set_options(p.OPT.URL, p.OPT.MENTION)  # remove URL and mentions in tweet text
 # Enter Twitter API Keys
 # http://apps.twitter.com 
 # consumer_key="FMdyTPjIpL5wFFRmrnjG1BBNJ"
@@ -41,6 +43,7 @@ class StdOutListener(StreamListener):
         try:
             
             text = json.loads(data)['text']
+            text = p.clean(text)
             text = text.lower().split()
             is_in = False
             vulgar_words_used = []

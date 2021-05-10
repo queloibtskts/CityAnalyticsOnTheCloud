@@ -1,7 +1,9 @@
 import tweepy
 import json
 import couchdb
-from streaming_to_couchdb import connect_to_database
+#from streaming_to_couchdb import connect_to_database
+import preprocessor as p
+p.set_options(p.OPT.URL, p.OPT.MENTION)  # remove URL and mentions in tweet text
 
 ## set API connection
 consumer_key = "gAJAEIYlILzQuCpdEDKnIeLrj"
@@ -14,30 +16,37 @@ auth.set_access_token(access_token, access_token_secret)
 
 api = tweepy.API(auth, wait_on_rate_limit = True)
 
-# couch db auth
 database1 = 'vulgar_tweet_by_search'
 database2 = 'clean_tweet_by_search'
-server = "localhost:5984"
-host = ''  # for remote db
-port = ''  # for remote db
-admin_username = "admin"
-admin_password = "12354"
 
-#server = couchdb.Server()
-#server.resource.credentials = (admin_username, admin_password)
+def connect_to_database(database_name, server):
+    try:
+        return server[database_name]
+    except:
+        return server.create(database_name)
+
+# uncomment 5 lines below to connect to local db server
+# server = "localhost:5984"
+# admin_username = "admin"
+# admin_password = "12354"
+# server = couchdb.Server()
+# server.resource.credentials = (admin_username, admin_password)
+
+# connect to remote db server
 server = couchdb.Server('http://admin:12345@127.0.0.1:5984/')
+
 db1 = connect_to_database(database1, server)
 db2 = connect_to_database(database2, server)
 
-date_since = "2020-04-21"
+#date_since = "2020-04-21"
 geocode = '-26.4391,133.2813,2079km'
-since = "2021-04-21"
-until = "2021-04-22"
+SINCE = "2021-05-05"
+UNTIL = "2021-05-06"
 
 text_list = []
 
 with open(
-        "F:/CHLOE/Study at UniMelb/2021S1_CCC/Assignment2/COMP90024_Assignment2/crawler/swear_word.txt",
+        "swear_word.txt",
         'r') as f:
     for line in f:
         line = line.strip('\t').strip()
@@ -45,7 +54,7 @@ with open(
 
 id_list = []
 tweets = api.search(q = "", geocode = geocode, lang = "en", result_type = "recent",
-                    since = "2021-04-23", until = "2021-04-24", count = 999999)
+                    since = SINCE, until = UNTIL, count = 999999)
 # print(tweets)
 # if tweets != None:
 if len(tweets)!=0:
@@ -55,6 +64,7 @@ if len(tweets)!=0:
         data = json.dumps(tweet._json)
         data_json = json.loads(data)
         text = data_json['text']
+        text = p.clean(text)
         text = text.lower().split()
         # print(text)
         
