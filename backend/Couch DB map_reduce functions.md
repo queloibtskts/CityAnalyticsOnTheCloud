@@ -1,6 +1,6 @@
 # Design Documents: Location
 ## View: countTweetByStates
-curl -XGET "http://<username>:<password>@<hostIP>:5984/<dbName>/_design/<designDocumentName>/_view/countTweetByStates?group=true"
+curl -XGET "http://\<username>:\<password>@\<hostIP>:5984/\<dbName>/_design/\<designDocumentName>/_view/countTweetByStates?group=true"
 
 e.g. curl -XGET "http://admin:12354@localhost:5984/ccc_twitter_test5/_design/location/_view/countTweetByStates?group=true"
 ### Map
