@@ -67,32 +67,27 @@ if len(tweets)!=0:
             if ((text[i] + ' ' + text[(i + 1) % len(text)] + ' ' + text[(i + 2) % len(text)] + ' ' +
                  text[(i + 3) % len(text)] + ' ' + text[
                      (i + 4) % len(text)]) in text_list):
-                print(data)
                 is_in = True
                 vulgar_words_used.append(text[i] + ' ' + text[(i + 1) % len(text)] + ' ' + text[(i + 2) % len(text)] + ' ' +text[(i + 3) % len(text)] + ' ' + text[(i + 4) % len(text)])
             
             elif ((text[i] + ' ' + text[(i + 1) % len(text)] + ' ' + text[
                 (i + 2) % len(text)] + ' ' + text[
                        (i + 3) % len(text)]) in text_list):
-                print(data)
                 vulgar_words_used.append(text[i] + ' ' + text[(i + 1) % len(text)] + ' ' + text[(i + 2) % len(text)] + ' ' + text[(i + 3) % len(text)])
                 is_in = True
             
 
             elif ((text[i] + ' ' + text[(i + 1) % len(text)] + ' ' + text[
                 (i + 2) % len(text)]) in text_list):
-                print(data)
                 is_in = True
                 vulgar_words_used.append(text[i] + ' ' + text[(i + 1) % len(text)] + ' ' + text[(i + 2) % len(text)])
             
 
             elif ((text[i] + ' ' + text[(i + 1) % len(text)]) in text_list):
-                print(data)
                 is_in = True
                 vulgar_words_used.append(text[i] + ' ' + text[(i + 1) % len(text)])
 
             elif ((text[i]) in text_list):
-                print(data)
                 is_in = True
                 vulgar_words_used.append(text[i])
         
