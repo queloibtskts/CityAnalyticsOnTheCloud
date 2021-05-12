@@ -1,7 +1,7 @@
 # COMP90024_Assignment2
 
   ### front end
-  cd frondend/ docker-compose up
+    cd frondend/ docker-compose up
 
   ### back end
     cd backend/ docker-compose up
