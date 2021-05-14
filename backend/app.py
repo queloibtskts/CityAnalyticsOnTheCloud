@@ -4,24 +4,24 @@ from flask import Flask, jsonify, make_response
 import couchdb
 from flask_cors import CORS
 cache = redis.Redis(host='redis', port=6379)
-# pip install couchdb
 
 app = Flask(__name__)
 CORS(app)
 
 # couch db auth
-# host = localhost:5984
-# database = 'ccc_twitter_test'
+# port = "localhost:5984"
 # admin_username = "admin"
 # admin_password = "12345"
-# connect to couch db
-# s = couchdb.Server('http://{admin_username}:{admin_password}@{url}/')
+# database = 'ccc_twitter_test'
 
-# cache = s[database]
+server = couchdb.Server('http://admin:12345@127.0.0.1:5984/')
+# may change 127.0.0.1 to 172.26.134.127
 
+# db = server[database]
 # URL = '_design/twitterInfo/_view/twitter'
-# view = cache.view(URL)
+# view = db.view(URL)
 # row_number = view.total_rows
+db = server.create('cccc')
 
 # @app.route('/scenario2', methods=['GET'])
 # def get_scenario_one():
@@ -29,7 +29,7 @@ CORS(app)
 
 @app.route('/scenario3', methods=['GET'])
 def get_scenario_two():
-    return jsonify({'row_number': 1})
+    return jsonify({'row_number': db._name})
 
 # Error Handling
 @app.errorhandler(400)
