@@ -8,7 +8,7 @@
 # Docker
 - hosts: instance3
   vars_files:
-    - host_vars/mrc.yaml
+    - host_vars/mrc2.yaml
     - host_vars/remote.yaml
   gather_facts: true
 
