@@ -1,0 +1,15 @@
+- name: run docker compose frond end
+  docker_compose: docker-compose.yml
+    project_src: "~/COMP90024_Assignment2/frondend/"
+    build: yes
+    remove_orphans: yes
+    remove_volumes: yes
+    recreate: always
+
+- name: run docker compose back-end
+  docker_compose: docker-compose.yml
+    project_src: "~/COMP90024_Assignment2/backend/"
+    build: yes
+    remove_orphans: yes
+    remove_volumes: yes
+    recreate: always
