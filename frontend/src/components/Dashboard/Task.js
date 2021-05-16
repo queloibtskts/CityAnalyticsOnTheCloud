@@ -4,7 +4,7 @@ import Title from './Title';
 import TimePickers from './TimePickers';
 import TimeSection from './TimeSection';
 
-const Tasks = () => {
+const Task = () => {
   return (
     <React.Fragment>
       <Title>Tasks</Title>
@@ -14,4 +14,4 @@ const Tasks = () => {
   );
 }
 
-export default Tasks;
+export default Task;

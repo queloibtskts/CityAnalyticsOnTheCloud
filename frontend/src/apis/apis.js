@@ -21,3 +21,10 @@ export const getScenarioThree = ( ) => axios({
   url: `${baseUrl}/scenario3`,
 });
 // Finish getScenario3//
+
+// Start getScenario3//
+export const getSamples = ( ) => axios({
+  method: 'get',
+  url: `${baseUrl}/samples`,
+});
+// Finish getScenario3//

@@ -11,13 +11,14 @@ import Button from '@material-ui/core/Button';
 import Description3 from '../Dashboard/Description3';
 import Link from '@material-ui/core/Link';
 import Typography from '@material-ui/core/Typography';
+import TimePickers from '../Dashboard/TimePickers'
 
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
       <Link color="inherit">
-        Your Website
+        CCC Website
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -44,6 +45,9 @@ const useStyles = makeStyles((theme) => ({
   fixedHeight: {
     height: 650,
   },
+  button:{
+    marginTop: '50px',
+  },
 }));
 
 const Scenario3 = () => {
@@ -52,76 +56,13 @@ const Scenario3 = () => {
   const [scenarioAllData, setScenarioAllData] = useState({});
   useEffect(() => {
     const fetchData = async () => {
-      const scenarioResponse = await apis.getScenarioThree();
+      const scenarioResponse = await apis.getSamples();// then change to getScenarioThree
       if (scenarioResponse.status === 200) {
         setScenarioAllData(scenarioResponse.data);
       }
     };
     fetchData();
   }, []);
-  // var json = `{
-  //   "VIC": [
-  //     {
-  //       "text": "vulgar1",
-  //       "value": 100
-  //     },
-  //     {
-  //       "text": "vulgar2",
-  //       "value": 100
-  //     }
-  //   ],
-  //   "QL": [
-  //     {
-  //       "text": "vulgar2",
-  //       "value": 100
-  //     },
-  //     {
-  //       "text": "vulgar2",
-  //       "value": 100
-  //     }
-  //   ],
-  //   "WA": [
-  //     {
-  //       "text": "vulgar2",
-  //       "value": 100
-  //     },
-  //     {
-  //       "text": "vulgar2",
-  //       "value": 100
-  //     }
-  //   ],
-  //   "NSW": [
-  //     {
-  //       "text": "vulgar2",
-  //       "value": 100
-  //     },
-  //     {
-  //       "text": "vulgar2",
-  //       "value": 100
-  //     }
-  //   ],
-  //   "NT": [
-  //     {
-  //       "text": "vulgar2",
-  //       "value": 100
-  //     },
-  //     {
-  //       "text": "vulgar2",
-  //       "value": 100
-  //     }
-  //   ],
-  //   "TAS": [
-  //     {
-  //       "text": "vulgar2",
-  //       "value": 100
-  //     },
-  //     {
-  //       "text": "vulgar2",
-  //       "value": 100
-  //     }
-  //   ]
-  // }`;
-  // const mockData = JSON.parse(json);
   const WA = ()  => (setScenarioData(scenarioAllData.WA));
   const QL = () => (setScenarioData(scenarioAllData.QL));
   const NT = () => (setScenarioData(scenarioAllData.NT));
@@ -140,7 +81,8 @@ const Scenario3 = () => {
         <Grid item xs={12} md={4} lg={3}>
           <Paper className={fixedHeightPaper}>
             <Title>Tasks</Title>
-            <Button onClick={WA}>Western Australia</Button>
+            <TimePickers />
+            <Button onClick={WA} className={scenario3classes.button}>Western Australia</Button>
             <Button onClick={QL} color="primary">Queensland</Button>
             <Button onClick={NT} color="secondary">Northern Territory</Button>
             <Button onClick={NSW}>New South Wales</Button>
