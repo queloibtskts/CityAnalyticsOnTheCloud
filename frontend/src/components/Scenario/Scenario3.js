@@ -48,90 +48,104 @@ const useStyles = makeStyles((theme) => ({
 
 const Scenario3 = () => {
   const scenario3classes = useStyles();
-  const [scenarioData, setScenarioData] = useState();
+  const [scenarioData, setScenarioData] = useState([]);
+  const [scenarioAllData, setScenarioAllData] = useState({});
   useEffect(() => {
     const fetchData = async () => {
       const scenarioResponse = await apis.getScenarioThree();
       if (scenarioResponse.status === 200) {
-        setScenarioData(scenarioResponse.data.row_number);
+        setScenarioAllData(scenarioResponse.data);
       }
     };
     fetchData();
   }, []);
-var json = `{
-  "Victoria": [
-    {
-      "text": "vulgar1",
-      "value": 100
-    },
-    {
-      "text": "vulgar2",
-      "value": 100
-    }
-  ],
-  "Queensland": [
-    {
-      "text": "vulgar2",
-      "value": 100
-    },
-    {
-      "text": "vulgar2",
-      "value": 100
-    }
-  ],
-  "Western_Australia": [
-    {
-      "text": "vulgar2",
-      "value": 100
-    },
-    {
-      "text": "vulgar2",
-      "value": 100
-    }
-  ],
-  "New_South_Wales": [
-    {
-      "text": "vulgar2",
-      "value": 100
-    },
-    {
-      "text": "vulgar2",
-      "value": 100
-    }
-  ],
-  "Northern_Territory": [
-    {
-      "text": "vulgar2",
-      "value": 100
-    },
-    {
-      "text": "vulgar2",
-      "value": 100
-    }
-  ]
-}`;
-const mockData = JSON.parse(json);
+  // var json = `{
+  //   "VIC": [
+  //     {
+  //       "text": "vulgar1",
+  //       "value": 100
+  //     },
+  //     {
+  //       "text": "vulgar2",
+  //       "value": 100
+  //     }
+  //   ],
+  //   "QL": [
+  //     {
+  //       "text": "vulgar2",
+  //       "value": 100
+  //     },
+  //     {
+  //       "text": "vulgar2",
+  //       "value": 100
+  //     }
+  //   ],
+  //   "WA": [
+  //     {
+  //       "text": "vulgar2",
+  //       "value": 100
+  //     },
+  //     {
+  //       "text": "vulgar2",
+  //       "value": 100
+  //     }
+  //   ],
+  //   "NSW": [
+  //     {
+  //       "text": "vulgar2",
+  //       "value": 100
+  //     },
+  //     {
+  //       "text": "vulgar2",
+  //       "value": 100
+  //     }
+  //   ],
+  //   "NT": [
+  //     {
+  //       "text": "vulgar2",
+  //       "value": 100
+  //     },
+  //     {
+  //       "text": "vulgar2",
+  //       "value": 100
+  //     }
+  //   ],
+  //   "TAS": [
+  //     {
+  //       "text": "vulgar2",
+  //       "value": 100
+  //     },
+  //     {
+  //       "text": "vulgar2",
+  //       "value": 100
+  //     }
+  //   ]
+  // }`;
+  // const mockData = JSON.parse(json);
+  const WA = ()  => (setScenarioData(scenarioAllData.WA));
+  const QL = () => (setScenarioData(scenarioAllData.QL));
+  const NT = () => (setScenarioData(scenarioAllData.NT));
+  const NSW = () => (setScenarioData(scenarioAllData.NSW));
+  const VIC = () => (setScenarioData(scenarioAllData.VIC));
+  const TAS = () => (setScenarioData(scenarioAllData.TAS));
   const fixedHeightPaper = clsx(scenario3classes.paper, scenario3classes.fixedHeight);
   return(
     <div>
       <Grid container spacing={3}>
         <Grid item xs={12} md={8} lg={9}>
           <Paper className={fixedHeightPaper}>
-            <WordCloud data={mockData.Northern_Territory} />
-            <div>
-              {scenarioData}
-            </div>
+            <WordCloud data={scenarioData} />
           </Paper>
         </Grid>
         <Grid item xs={12} md={4} lg={3}>
           <Paper className={fixedHeightPaper}>
             <Title>Tasks</Title>
-            <Button onClick>Western Australia</Button>
-            <Button color="primary">Queensland</Button>
-            <Button color="secondary">Northern Territory</Button>
-            <Button>New South Wales</Button>
-            <Button color="primary">Victoria</Button>
-            <Button color="primary">Tasmania</Button>
+            <Button onClick={WA}>Western Australia</Button>
+            <Button onClick={QL} color="primary">Queensland</Button>
+            <Button onClick={NT} color="secondary">Northern Territory</Button>
+            <Button onClick={NSW}>New South Wales</Button>
+            <Button onClick={VIC} color="primary">Victoria</Button>
+            <Button onClick={TAS} color="primary">Tasmania</Button>
           </Paper>
         </Grid>
         <Grid item xs={12}>

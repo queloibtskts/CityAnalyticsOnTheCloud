@@ -53,7 +53,7 @@ const Scenario2 = () => {
     const fetchData = async () => {
       const scenarioResponse = await apis.getScenarioThree();
       if (scenarioResponse.status === 200) {
-        setScenarioData(scenarioResponse.data.row_number);
+        setScenarioData(scenarioResponse.data.Victoria);
       }
     };
     fetchData();
@@ -560,6 +560,7 @@ const Scenario2 = () => {
       value: 10,
     },
   ]
+  
   return(
     <div>
       <Grid container spacing={3}>
@@ -567,8 +568,8 @@ const Scenario2 = () => {
           <Paper className={fixedHeightPaper}>
           <WordCloud data={mockCloudData} />
           <div>
-              {scenarioData}
-            </div>
+            {scenarioData}
+          </div>
           </Paper>
         </Grid>
         <Grid item xs={12} md={4} lg={3}>
