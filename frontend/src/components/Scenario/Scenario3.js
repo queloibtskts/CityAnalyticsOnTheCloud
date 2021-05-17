@@ -54,11 +54,21 @@ const Scenario3 = () => {
   const scenario3classes = useStyles();
   const [scenarioData, setScenarioData] = useState([]);
   const [scenarioAllData, setScenarioAllData] = useState({});
+  const [testData, setTestData] = useState();
   useEffect(() => {
     const fetchData = async () => {
       const scenarioResponse = await apis.getSamples();// then change to getScenarioThree
       if (scenarioResponse.status === 200) {
         setScenarioAllData(scenarioResponse.data);
+      }
+    };
+    fetchData();
+  }, []);
+  useEffect(() => {
+    const fetchData = async () => {
+      const scenarioResponse = await apis.getScenarioThree();//test
+      if (scenarioResponse.status === 200) {
+        setTestData(scenarioResponse.data);
       }
     };
     fetchData();
@@ -76,6 +86,7 @@ const Scenario3 = () => {
         <Grid item xs={12} md={8} lg={9}>
           <Paper className={fixedHeightPaper}>
             <WordCloud data={scenarioData} />
+            <div>{testData}</div>
           </Paper>
         </Grid>
         <Grid item xs={12} md={4} lg={3}>

@@ -33,7 +33,7 @@ db = connect_to_database(DBNAME, server)
 
 @app.route('/scenario3', methods=['GET'])
 def get_scenario_three():
-    return jsonify({'dbname': db._name})
+    return jsonify({'dbname': db._name + 'successful!'})
 
 # Error Handling
 @app.errorhandler(400)
