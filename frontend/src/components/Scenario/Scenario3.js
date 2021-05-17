@@ -66,9 +66,9 @@ const Scenario3 = () => {
   }, []);
   useEffect(() => {
     const fetchData = async () => {
-      const scenarioResponse = await apis.getScenarioThree();//test
-      if (scenarioResponse.status === 200) {
-        setTestData(scenarioResponse.data);
+      const testResponse = await apis.getScenarioThree();//test
+      if (testResponse.status === 200) {
+        setTestData(testResponse.data.dbname);
       }
     };
     fetchData();
