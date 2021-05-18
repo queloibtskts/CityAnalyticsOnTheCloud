@@ -110,5 +110,5 @@ if __name__ == '__main__':
     #track = ['COVID-19', 'coronavirus', 'hospital']
     #locations=[109.59,-44.55,159.34,-11.05]
     #stream.filter(locations=[106.698311,-45.075950, 155.949366, -10.755751 ],languages=['en'], is_async=True)
-    stream.filter(locations=[110.01,-45.02,160.82,-12.02],languages=['en'], is_async=True)
-
+    
+    stream.filter(locations=[72.25,-55.32,168.23,-9.09],languages=['en'], is_async=True)
