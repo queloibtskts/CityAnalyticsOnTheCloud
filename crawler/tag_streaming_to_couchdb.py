@@ -114,7 +114,7 @@ class CouchDBStreamListener(tweepy.StreamListener):
 while True:
     try:
         stream = tweepy.streaming.Stream(auth, CouchDBStreamListener())
-        stream.filter(locations=[110.01,-45.02,160.82,-12.02],languages=['en'])
+        stream.filter(locations=[72.25,-55.32,168.23,-9.09],languages=['en'])
     except:
         print("error")
         time.sleep(30)
