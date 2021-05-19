@@ -6,3 +6,10 @@ def view_reformatter(rows):
             freqs.append({'text': k, 'value': v})
         all_freqs[row['key']] = freqs
     return all_freqs
+
+def view_reformatterAU(rows):
+    freqs = []
+    for row in rows:
+        freqs.append({'text': row['key'], 'value': row['value']})
+    all_freqs = {'VIC': freqs}
+    return all_freqs
