@@ -57,7 +57,7 @@ const Scenario3 = () => {
   const [testData, setTestData] = useState();
   useEffect(() => {
     const fetchData = async () => {
-      const scenarioResponse = await apis.getSamples();// then change to getScenarioThree
+      const scenarioResponse = await apis.getScenarioThree();// then change to getScenarioThree
       if (scenarioResponse.status === 200) {
         setScenarioAllData(scenarioResponse.data);
       }
@@ -66,9 +66,9 @@ const Scenario3 = () => {
   }, []);
   useEffect(() => {
     const fetchData = async () => {
-      const testResponse = await apis.getScenarioThree();//test
-      if (testResponse.status === 200) {
-        setTestData(testResponse.data.dbname);
+      const testNameResponse = await apis.getSamples();//testget
+      if (testNameResponse.status === 200) {
+        setTestData(testNameResponse.data.dbname);
       }
     };
     fetchData();

@@ -16,7 +16,7 @@ CORS(app)
 # couch db auth
 # ADMIN_USERNAME = 'admin'
 # ADMIN_PASSWORD = '12345'
-server = couchdb.Server('http://admin:12345@127.0.0.1:5984/') #use docker - can not connect to couchdb
+server = couchdb.Server('http://admin:12345@127.0.0.1:5984/')
 # may change 127.0.0.1 to 172.26.134.127
 
 def connect_to_database(database_name, server):
@@ -28,15 +28,11 @@ def connect_to_database(database_name, server):
 DBNAME = 'try'
 db = connect_to_database(DBNAME, server)
 
-# URL = '_design/newview/_view/new-view'
-# view = db.view(URL)
 view = db.view('designDocName/viewName', group=True) # e.g. URL = 'language/vulgarWordFreq'
-# row_number = view.total_rows
 
 @app.route('/scenario3', methods=['GET'])
 def get_scenario_three():
     return jsonify(view_reformatter(view.rows))
-    # return jsonify({'dbname': db._name + 'successful!'})
 
 # Error Handling
 @app.errorhandler(400)
@@ -51,70 +47,70 @@ def hello_world():
 
 @app.route('/samples', methods=['GET'])
 def get_samples():
-    return jsonify(samples)
+    return jsonify({'dbname': db._name + 'successful!'})
 
-samples = {
-    "VIC": [
-      {
-        "text": "VICvulgar1",
-        "value": 100
-      },
-      {
-        "text": "VICvulgar2",
-        "value": 100
-      }
-    ],
-    "QL": [
-      {
-        "text": "QLvulgar2",
-        "value": 100
-      },
-      {
-        "text": "QLvulgar2",
-        "value": 100
-      }
-    ],
-    "WA": [
-      {
-        "text": "WAvulgar2",
-        "value": 100
-      },
-      {
-        "text": "WAvulgar2",
-        "value": 100
-      }
-    ],
-    "NSW": [
-      {
-        "text": "NSWvulgar2",
-        "value": 100
-      },
-      {
-        "text": "NSWvulgar2",
-        "value": 100
-      }
-    ],
-    "NT": [
-      {
-        "text": "NTvulgar2",
-        "value": 100
-      },
-      {
-        "text": "NTvulgar2",
-        "value": 100
-      }
-    ],
-    "TAS": [
-      {
-        "text": "TASvulgar2",
-        "value": 100
-      },
-      {
-        "text": "TASvulgar2",
-        "value": 40
-      }
-    ]
-}
+# samples = {
+#     "VIC": [
+#       {
+#         "text": "VICvulgar1",
+#         "value": 100
+#       },
+#       {
+#         "text": "VICvulgar2",
+#         "value": 100
+#       }
+#     ],
+#     "QL": [
+#       {
+#         "text": "QLvulgar2",
+#         "value": 100
+#       },
+#       {
+#         "text": "QLvulgar2",
+#         "value": 100
+#       }
+#     ],
+#     "WA": [
+#       {
+#         "text": "WAvulgar2",
+#         "value": 100
+#       },
+#       {
+#         "text": "WAvulgar2",
+#         "value": 100
+#       }
+#     ],
+#     "NSW": [
+#       {
+#         "text": "NSWvulgar2",
+#         "value": 100
+#       },
+#       {
+#         "text": "NSWvulgar2",
+#         "value": 100
+#       }
+#     ],
+#     "NT": [
+#       {
+#         "text": "NTvulgar2",
+#         "value": 100
+#       },
+#       {
+#         "text": "NTvulgar2",
+#         "value": 100
+#       }
+#     ],
+#     "TAS": [
+#       {
+#         "text": "TASvulgar2",
+#         "value": 100
+#       },
+#       {
+#         "text": "TASvulgar2",
+#         "value": 40
+#       }
+#     ]
+# }
 
 if __name__ == '__main__':
     app.run()
