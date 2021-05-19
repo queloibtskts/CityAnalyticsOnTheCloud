@@ -129,6 +129,30 @@ function(keys, values, rereduce) {
 }
 ```
 
+
+## View: vulgarWordFreqAU
+
+This MapReduce function returns vulgar word frequencies in Australia.
+
+### Map
+```
+function (doc) {
+  if (doc && doc.tag && doc.tag.vulgar_words && doc.tag.vulgar_words == 'True') {
+      if (doc.tag.vulgar_words_used) {
+          var vulgar_words_used = doc.tag.vulgar_words_used;
+          for (var j=0; j < vulgar_words_used.length; j++) {
+              var vulw = vulgar_words_used[j];
+              emit(vulw, 1);
+          }
+      }
+  }
+}
+```
+
+### Reduce
+_sum
+
+
 ## View: hashtagFreq
 
 This MapReduce function returns hashtag frequencies in each state.
@@ -205,4 +229,24 @@ function(keys, values, rereduce) {
   // return array;
 }
 ```
+
+## View: hashtagFreqAU
+
+This MapReduce function returns hashtag frequencies in Australia.
+
+### Map
+```
+function (doc) {
+  if (doc && doc.entities && doc.entities.hashtags) {
+      var hashtags = doc.entities.hashtags;
+      for (var j=0; j < hashtags.length; j++) {
+          var hashtag = hashtags[j].text;
+          emit(hashtag, 1);
+      }
+  } 
+}
+```
+
+### Reduce
+_count
 
