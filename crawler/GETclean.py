@@ -1,10 +1,9 @@
 import couchdb
 import tweepy
 import json
-import couchdb
 import time
 import preprocessor as p
-import pandas as pd
+
 
 def connect_to_database(database_name, server):
     try:
