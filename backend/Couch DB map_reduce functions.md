@@ -1,250 +1,133 @@
-# Design Documents: Location
-## View: countTweetByStates
-curl -XGET "http://\<username>:\<password>@\<hostIP>:5984/\<dbName>/_design/\<designDocumentName>/_view/countTweetByStates?group=true"
+# Design Documents: Language
 
-e.g. curl -XGET "http://admin:12354@localhost:5984/ccc_twitter_test5/_design/location/_view/countTweetByStates?group=true"
+curl -XGET "http://\<username>:\<password>@\<hostIP>:5984/\<dbName>/_design/\<designDocumentName>/_view/\<viewName>?group=true"
+
+e.g. $ curl -XGET "http://admin:12354@localhost:5984/vulgar_tweet_by_search/_design/language/_view/vulgarWordFreq?group=true"
+
+## View: countTweetByStates
+
+This MapReduce function counts the tweets from each state.
+
 ### Map
 ```
 function (doc) {
-  var loc = doc.place.full_name.toLowerCase();
-  var loc2 = doc.user.location.toLowerCase();
+  if (doc.place && doc.place.full_name) {
+      var loc_l = doc.place.full_name.toLowerCase();
+      var loc = doc.place.full_name;
+  }
+  if (doc.user && doc.user.location) {
+      var loc2_l = doc.user.location.toLowerCase();
+      var loc2 = doc.user.location;
+  }
+  var stateNotFound = true;
   var allLoc = ['victoria', 'act', 'new south wales', 'northern territory', 'queensland', 'tasmania', 'western australia', 'south australia'];
+  var abbres = {'VIC': 'victoria', 'NSW': 'new south wales', 'NT': 'northern territory', 'QLD': 'queensland', 'TAS': 'tasmania', 'WA': 'western australia', 'SA': 'south australia'};
   for (var i=0; i < allLoc.length; i++) {
-      if (loc.includes(allLoc[i]) || loc2.includes(allLoc[i])) {
+      if ( ( loc_l && loc_l.includes(allLoc[i]) ) || ( loc2_l && loc2_l.includes(allLoc[i]) ) ) {
+          // var thisLoc = allLoc[i];
+          stateNotFound = false;
           emit(allLoc[i], 1);
       }
   }
+  if (stateNotFound) {
+      for (var abbre in abbres) {
+          if  ( ( loc && loc.includes(abbre) ) || ( loc2 && loc2.includes(abbre) ) ) {
+              // var thisLoc = abbres[abbre];
+              emit(abbres[abbre], 1);
+          }
+      }
+  }
+  // console.log(thisLoc);
 }
 ```
 ### Reduce
 _count
 
 
-## View: victoria
+## View: vulgarWordFreq
+
+This MapReduce function returns vulgar word frequencies in each state.
 
 ### Map
 ```
 function (doc) {
-  var loc = doc.place.full_name.toLowerCase();
-  if (loc.includes('victoria')) {
-    emit(doc, 1);
-  } else {
-    var loc2 = doc.user.location.toLowerCase();
-    if (loc2.includes('victoria')) {
-      emit(doc, 1);
-    }
+  if (doc.place && doc.place.full_name) {
+      var loc_l = doc.place.full_name.toLowerCase();
+      var loc = doc.place.full_name;
   }
+  if (doc.user && doc.user.location) {
+      var loc2_l = doc.user.location.toLowerCase();
+      var loc2 = doc.user.location;
+  }
+  var stateNotFound = true;
+  var abbres = {'act': 'ACT', 'victoria': 'VIC', 'new south wales': 'NSW', 'northern territory': 'NT', 'queensland': 'QLD', 'tasmania': 'TAS', 'western australia': 'WA', 'south australia': 'SA'};
+  var thisLoc = null;
+  for (var abbre in abbres) {
+      if  ( ( loc_l && loc_l.includes(abbre) ) || ( loc2_l && loc2_l.includes(abbre) ) ) {
+          thisLoc = abbres[abbre];
+          stateNotFound = false;
+      }
+  }
+  if (stateNotFound) {
+      for (var abbre1 in abbres) {
+          if  ( ( loc && loc.includes(abbres[abbre1]) ) || ( loc2 && loc2.includes(abbres[abbre1]) ) ) {
+              thisLoc = abbres[abbre1];
+              stateNotFound = false;
+          }
+      }
+  }
+  // console.log(thisLoc);
+  
+  if (thisLoc && doc && doc.tag && doc.tag.vulgar_words && doc.tag.vulgar_words == 'True') {
+      if (doc.tag.vulgar_words_used) {
+          var vulgar_words_used = doc.tag.vulgar_words_used;
+          var vulgar_words_freqs = {};
+          // console.log(vulgar_words_used);
+          for (var j=0; j < vulgar_words_used.length; j++) {
+              var vulw = vulgar_words_used[j];
+              if (Object.keys(vulgar_words_freqs).includes(vulw)) {
+                  vulgar_words_freqs[vulw] += 1;
+              } else {
+                  vulgar_words_freqs[vulw] = 1;
+              }
+          }
+          // console.log(vulgar_words_freqs);
+          emit(thisLoc, vulgar_words_freqs);
+      } else {
+          console.log('error1');
+      }
+    } else {
+        console.log('error2');
+    }
 }
 ```
 
 ### Reduce
-None
 
-## View: newsouthwales
-
-### Map
 ```
-function (doc) {
-  var loc = doc.place.full_name.toLowerCase();
-  if (loc.includes('new south wales')) {
-    emit(doc, 1);
-  } else {
-    var loc2 = doc.user.location.toLowerCase();
-    if (loc2.includes('new south wales')) {
-      emit(doc, 1);
-    }
+function(keys, values, rereduce) {
+  var all_freqs = {};
+  for(var i = 0; i < values.length; i++) {
+      var vulgar_words_freqs = values[i];
+      // console.log(vulgar_words_freqs);
+      for(var vulw in vulgar_words_freqs) {
+          var freq = vulgar_words_freqs[vulw];
+          if (Object.keys(all_freqs).includes(vulw)) {
+              all_freqs[vulw] += freq;
+          } else {
+              all_freqs[vulw] = freq;
+          }
+        }
   }
+  // console.log(all_freqs);
+  // var array = [];
+  // for (var word in all_freqs) {
+  //   array.push({text: word, value: all_freqs[word]});
+  // }
+  return all_freqs;
+  // return array;
 }
 ```
 
-### Reduce
-None
 
 
-## View: southaustralia
-
-### Map
-```
-function (doc) {
-  var loc = doc.place.full_name.toLowerCase();
-  if (loc.includes('south australia')) {
-    emit(doc, 1);
-  } else {
-    var loc2 = doc.user.location.toLowerCase();
-    if (loc2.includes('south australia')) {
-      emit(doc, 1);
-    }
-  }
-}
-```
-
-### Reduce
-None
-
-## View: queensland
-
-### Map
-```
-function (doc) {
-  var loc = doc.place.full_name.toLowerCase();
-  if (loc.includes('queensland')) {
-    emit(doc, 1);
-  } else {
-    var loc2 = doc.user.location.toLowerCase();
-    if (loc2.includes('queensland')) {
-      emit(doc, 1);
-    }
-  }
-}
-```
-
-### Reduce
-None
-
-## View: westernaustralia
-
-### Map
-```
-function (doc) {
-  var loc = doc.place.full_name.toLowerCase();
-  if (loc.includes('western australia')) {
-    emit(doc, 1);
-  } else {
-    var loc2 = doc.user.location.toLowerCase();
-    if (loc2.includes('western australia')) {
-      emit(doc, 1);
-    }
-  }
-}
-```
-
-### Reduce
-None
-
-## View: tasmania
-
-### Map
-```
-function (doc) {
-  var loc = doc.place.full_name.toLowerCase();
-  if (loc.includes('tasmania')) {
-    emit(doc, 1);
-  } else {
-    var loc2 = doc.user.location.toLowerCase();
-    if (loc2.includes('tasmania')) {
-      emit(doc, 1);
-    }
-  }
-}
-```
-
-### Reduce
-None
-
-
-## View: act
-
-### Map
-```
-function (doc) {
-  var loc = doc.place.full_name.toLowerCase();
-  if (loc.includes('act')) {
-    emit(doc, 1);
-  } else {
-    var loc2 = doc.user.location.toLowerCase();
-    if (loc2.includes('act')) {
-      emit(doc, 1);
-    }
-  }
-}
-```
-
-### Reduce
-None
-
-
-## View: northernterritory
-
-### Map
-```
-function (doc) {
-  var loc = doc.place.full_name.toLowerCase();
-  if (loc.includes('northern territory')) {
-    emit(doc, 1);
-  } else {
-    var loc2 = doc.user.location.toLowerCase();
-    if (loc2.includes('northern territory')) {
-      emit(doc, 1);
-    }
-  }
-}
-```
-
-### Reduce
-None
-
-## View: jervisbayterritory
-
-### Map
-```
-function (doc) {
-  var loc = doc.place.full_name.toLowerCase();
-  if (loc.includes('jervis bay territory')) {
-    emit(doc, 1);
-  } else {
-    var loc2 = doc.user.location.toLowerCase();
-    if (loc2.includes('jervis bay territory')) {
-      emit(doc, 1);
-    }
-  }
-}
-```
-
-### Reduce
-None
-
-
-## View: melbourne
-
-### Map
-```
-function (doc) {
-  var loc = doc.user.location.toLowerCase()
-  if (loc.includes('melbourne')) {
-    emit(doc, 1);
-  }
-} 
-```
-
-### Reduce
-None
-
-## View: sydney
-
-### Map
-```
-function (doc) {
-  var loc = doc.user.location.toLowerCase()
-  if (loc.includes('sydney')) {
-    emit(doc, 1);
-  }
-} 
-```
-
-### Reduce
-None
-
-## View: perth
-
-### Map
-```
-function (doc) {
-  var loc = doc.user.location.toLowerCase()
-  if (loc.includes('perth')) {
-    emit(doc, 1);
-  }
-} 
-```
-
-### Reduce
-None
