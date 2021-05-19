@@ -3,6 +3,7 @@ import redis
 from flask import Flask, jsonify, make_response
 import couchdb
 from flask_cors import CORS
+from utils import view_reformatter
 cache = redis.Redis(host='redis', port=6379)
 
 app = Flask(__name__)
@@ -29,11 +30,13 @@ db = connect_to_database(DBNAME, server)
 
 # URL = '_design/newview/_view/new-view'
 # view = db.view(URL)
+view = db.view('designDocName/viewName', group=True) # e.g. URL = 'language/vulgarWordFreq'
 # row_number = view.total_rows
 
 @app.route('/scenario3', methods=['GET'])
 def get_scenario_three():
-    return jsonify({'dbname': db._name + 'successful!'})
+    return jsonify(view_reformatter(view.rows))
+    # return jsonify({'dbname': db._name + 'successful!'})
 
 # Error Handling
 @app.errorhandler(400)
