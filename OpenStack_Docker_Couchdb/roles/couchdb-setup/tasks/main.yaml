@@ -43,7 +43,11 @@
 
 - name: Create design document
   become: yes
-  shell: curl -X PUT http://{{ couchdb_user }}:{{ couchdb_password }}@127.0.0.1:5984/tweets/_design/abc --data-binary @design.json
+  shell: curl -X PUT http://{{ couchdb_user }}:{{ couchdb_password }}@127.0.0.1:5984/clean_tweet_by_search/_design/language --data-binary @design.json
+
+- name: Create design document
+  become: yes
+  shell: curl -X PUT http://{{ couchdb_user }}:{{ couchdb_password }}@127.0.0.1:5984/vulgar_tweet_by_search/_design/language --data-binary @design.json
 
 
 
