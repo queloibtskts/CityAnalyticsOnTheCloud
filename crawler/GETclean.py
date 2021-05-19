@@ -19,7 +19,7 @@ db = connect_to_database("vulgar_tweet_by_search", server)
 rows = db.view('_all_docs', include_docs=True)
 data = [row['doc'] for row in rows]
 for i in range(len(data)):
-    temp = data[0]
+    temp = data[i]
     temp = json.dumps(temp)
     temp = json.loads(temp)
     temp.pop('_id', None)
