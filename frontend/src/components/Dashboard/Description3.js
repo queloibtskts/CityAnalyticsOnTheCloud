@@ -20,9 +20,7 @@ export default function Description3() {
     <div>
        <Title>Description and Analysis</Title>
       <Typography variant="body1" gutterBottom>
-        Description3. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos blanditiis tenetur
-        unde suscipit, quam beatae rerum inventore consectetur, neque doloribus, cupiditate numquam
-        dignissimos laborum fugiat deleniti? Eum quasi quidem quibusdam.
+        第三个是全澳vulgar word的word cloud：看在全澳范围内哪些脏话更常用
       </Typography>
       <div className={descriptionClasses.seeMore} align="center">
         <Link color="primary" href="#" onClick={preventDefault} >

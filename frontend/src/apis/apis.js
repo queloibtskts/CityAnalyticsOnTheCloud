@@ -22,9 +22,17 @@ export const getScenarioThree = ( ) => axios({
 });
 // Finish getScenario3//
 
+
 // Start getScenario3//
+export const getScenarioFour = ( ) => axios({
+  method: 'get',
+  url: `${baseUrl}/scenario4`,
+});
+// Finish getScenario3//
+
+// Start getSamples//
 export const getSamples = ( ) => axios({
   method: 'get',
   url: `${baseUrl}/samples`,
 });
-// Finish getScenario3//
+// Finish getSamples//

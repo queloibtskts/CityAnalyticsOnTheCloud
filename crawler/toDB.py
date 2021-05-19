@@ -12,7 +12,7 @@ def connect_to_database(database_name, server):
 
 server = couchdb.Server('http://admin:12345@127.0.0.1:5984/')
 
-db = server['tweets']
+# db = server['tweets'] 
 database1 = 'vulgar_tweet_by_search'
 database2 = 'clean_tweet_by_search'
 

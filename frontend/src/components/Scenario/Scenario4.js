@@ -7,7 +7,8 @@ import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Title from '../Dashboard/Title';
-import Description3 from '../Dashboard/Description3';
+import Button from '@material-ui/core/Button';
+import Description4 from '../Dashboard/Description4';
 import Link from '@material-ui/core/Link';
 import Typography from '@material-ui/core/Typography';
 import TimePickers from '../Dashboard/TimePickers'
@@ -49,48 +50,51 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Scenario3 = () => {
-  const scenario3classes = useStyles();
+const Scenario4 = () => {
+  const scenario4classes = useStyles();
   const [scenarioData, setScenarioData] = useState([]);
-  const [testData, setTestData] = useState();
+  const [scenarioAllData, setScenarioAllData] = useState({});
   useEffect(() => {
     const fetchData = async () => {
-      const scenarioResponse = await apis.getScenarioThree();
+      const scenarioResponse = await apis.getScenarioFour();
       if (scenarioResponse.status === 200) {
-        setScenarioData(scenarioResponse.data.AU);
-      }
-    };
-    fetchData();
-  }, []);
-  useEffect(() => {
-    const fetchData = async () => {
-      const testNameResponse = await apis.getSamples();//test
-      if (testNameResponse.status === 200) {
-        setTestData(testNameResponse.data.dbname);
+        setScenarioAllData(scenarioResponse.data);
       }
     };
     fetchData();
   }, []);
 
-  const fixedHeightPaper = clsx(scenario3classes.paper, scenario3classes.fixedHeight);
+  const WA = ()  => (setScenarioData(scenarioAllData.VIC));
+  const QL = () => (setScenarioData(scenarioAllData.VIC));
+  const NT = () => (setScenarioData(scenarioAllData.VIC));
+  const NSW = () => (setScenarioData(scenarioAllData.VIC));
+  const VIC = () => (setScenarioData(scenarioAllData.VIC));
+  const TAS = () => (setScenarioData(scenarioAllData.VIC));
+  const fixedHeightPaper = clsx(scenario4classes.paper, scenario4classes.fixedHeight);
   return(
     <div>
       <Grid container spacing={3}>
         <Grid item xs={12} md={8} lg={9}>
           <Paper className={fixedHeightPaper}>
             <WordCloud data={scenarioData} />
-            <div>{testData}</div>
           </Paper>
         </Grid>
         <Grid item xs={12} md={4} lg={3}>
           <Paper className={fixedHeightPaper}>
             <Title>Tasks</Title>
             <TimePickers />
+            <Button onClick={WA} className={scenario4classes.button}>Western Australia</Button>
+            <Button onClick={QL} color="primary">Queensland</Button>
+            <Button onClick={NT} color="secondary">Northern Territory</Button>
+            <Button onClick={NSW}>New South Wales</Button>
+            <Button onClick={VIC} color="primary">Victoria</Button>
+            <Button onClick={TAS} color="primary">Tasmania</Button>
+            <Button onClick={TAS} color="secondary" variant="contained">All about clean</Button>
           </Paper>
         </Grid>
         <Grid item xs={12}>
-          <Paper className={scenario3classes.paper}>
-            <Description3 />
+          <Paper className={scenario4classes.paper}>
+            <Description4 />
           </Paper>
         </Grid>
       </Grid>
@@ -101,4 +105,4 @@ const Scenario3 = () => {
   )
 }
 
-export default Scenario3;
+export default Scenario4;

@@ -9,8 +9,9 @@ import ListSubheader from '@material-ui/core/ListSubheader';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import SaveAltIcon from '@material-ui/icons/SaveAlt';
 import SpellcheckIcon from '@material-ui/icons/Spellcheck';
-import AccessTimeIcon from '@material-ui/icons/AccessTime';
-import EqualizerIcon from '@material-ui/icons/Equalizer';
+import InsertChartIcon from '@material-ui/icons/InsertChart';
+import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
+import CompareArrowsIcon from '@material-ui/icons/CompareArrows';
 
 export const mainListItems = (
   <div>
@@ -39,7 +40,7 @@ export const secondaryListItems = (
     <Link to="/scenario1">
       <ListItem button>
         <ListItemIcon>
-          <EqualizerIcon />
+          <AttachMoneyIcon />
         </ListItemIcon>
         <ListItemText primary="Scenario 1" />
       </ListItem>
@@ -47,7 +48,7 @@ export const secondaryListItems = (
     <Link to="/scenario2">
       <ListItem button>
         <ListItemIcon>
-        <AccessTimeIcon />
+        <InsertChartIcon />
         </ListItemIcon>
         <ListItemText primary="Scenario 2" />
       </ListItem>
@@ -58,6 +59,14 @@ export const secondaryListItems = (
         <SpellcheckIcon />
       </ListItemIcon>
       <ListItemText primary="Scenario 3" />
+    </ListItem>
+    </Link>
+    <Link to="/scenario4">
+    <ListItem button>
+      <ListItemIcon>
+        <CompareArrowsIcon />
+      </ListItemIcon>
+      <ListItemText primary="Scenario 4" />
     </ListItem>
     </Link>
   </div>

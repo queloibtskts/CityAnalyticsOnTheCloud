@@ -1,5 +1,7 @@
-import React from "react";
+/* eslint-disable no-unused-vars */
+import React, { useEffect }from "react";
 import clsx from 'clsx';
+import * as apis from '../../apis/apis';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
@@ -8,7 +10,7 @@ import Task from '../Dashboard/Task';
 import Description2 from '../Dashboard/Description2';
 import Link from '@material-ui/core/Link';
 import Typography from '@material-ui/core/Typography';
-import Tableau from '../Dashboard/Tableau'
+import ColumnChart from '../Chart/Chart'
 
 function Copyright() {
   return (
@@ -44,16 +46,36 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
+const data = [
+  ['State', 'TOP1', 'TOP2', 'TOP3'],
+  ['WA', 127, 111, 10],
+  ['QLD', 111, 100, 1],
+  ['NT', 127, 111, 10],
+  ['NSW', 127, 111, 10],
+  ['VIC', 127, 111, 10],
+  ['TAS', 127, 111, 10],
+];
+
 const Scenario2 = () => {
   const scenario2classes = useStyles();
   const fixedHeightPaper = clsx(scenario2classes.paper, scenario2classes.fixedHeight);
-  const url = "https://public.tableau.com/views/choropleth_vulgarTweetPercentage/2?:language=en";
+  // const [testData, setTestData] = useState();
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const testNameResponse = await apis.getScenarioTwo();//test
+  //     if (testNameResponse.status === 200) {
+  //       setTestData(testNameResponse.data);
+  //     }
+  //   };
+  //   fetchData();
+  // }, []);
   return(
     <div>
       <Grid container spacing={3}>
         <Grid item xs={12} md={8} lg={9}>
           <Paper className={fixedHeightPaper}>
-            <Tableau url={url} />
+            <ColumnChart data={data}/>
           </Paper>
         </Grid>
         <Grid item xs={12} md={4} lg={3}>

@@ -4,6 +4,7 @@ import Reportpage from '../Scenario/Reportpage';
 import Scenario1 from '../Scenario/Scenario1';
 import Scenario2 from '../Scenario/Scenario2';
 import Scenario3 from '../Scenario/Scenario3';
+import Scenario4 from '../Scenario/Scenario4';
 import Dashboard from '../Dashboard/Dashboard';
 import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
@@ -40,6 +41,7 @@ const App = () => {
           <Route path="/scenario1" component={Scenario1} />
           <Route path="/scenario2" component={Scenario2} />
           <Route path="/scenario3" component={Scenario3} />
+          <Route path="/scenario4" component={Scenario4} />
         </Switch>
       </Container>
       </main>
