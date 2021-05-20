@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { useEffect }from "react";
+import React, { useState, useEffect }from "react";
 import clsx from 'clsx';
 import * as apis from '../../apis/apis';
 import { makeStyles } from '@material-ui/core/styles';
@@ -49,33 +49,34 @@ const useStyles = makeStyles((theme) => ({
 
 const data = [
   ['State', 'TOP1', 'TOP2', 'TOP3'],
-  ['WA', 127, 111, 10],
-  ['QLD', 111, 100, 1],
-  ['NT', 127, 111, 10],
-  ['NSW', 127, 111, 10],
-  ['VIC', 127, 111, 10],
-  ['TAS', 127, 111, 10],
+  ['WA(word1,word2, word3)', 127, 111, 10],
+  ['QLD(word1,word2, word3)', 111, 100, 1],
+  ['NT(word1,word2, word3)', 127, 111, 10],
+  ['NSW(word1,word2, word3)', 127, 111, 10],
+  ['VIC(word1,word2, word3)', 127, 111, 10],
+  ['TAS(word1,word2, word3)', 127, 111, 10],
 ];
 
 const Scenario2 = () => {
   const scenario2classes = useStyles();
   const fixedHeightPaper = clsx(scenario2classes.paper, scenario2classes.fixedHeight);
-  // const [testData, setTestData] = useState();
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     const testNameResponse = await apis.getScenarioTwo();//test
-  //     if (testNameResponse.status === 200) {
-  //       setTestData(testNameResponse.data);
-  //     }
-  //   };
-  //   fetchData();
-  // }, []);
+  const [scenarioData, setScenarioData] = useState({});
+  useEffect(() => {
+    const fetchData = async () => {
+      const scenarioResponse = await apis.getScenarioTwo();
+      if (scenarioResponse.status === 200) {
+        setScenarioData(Array.from((Object.values(scenarioResponse.data))));
+      }
+    };
+    fetchData();
+  }, []);
+
   return(
     <div>
       <Grid container spacing={3}>
         <Grid item xs={12} md={8} lg={9}>
           <Paper className={fixedHeightPaper}>
-            <ColumnChart data={data}/>
+            <ColumnChart data={scenarioData}/>
           </Paper>
         </Grid>
         <Grid item xs={12} md={4} lg={3}>

@@ -11,5 +11,5 @@ def view_reformatterAU(rows):
     freqs = []
     for row in rows:
         freqs.append({'text': row['key'], 'value': row['value']})
-    all_freqs = {'VIC': freqs}
+    all_freqs = {'AU': freqs}
     return all_freqs

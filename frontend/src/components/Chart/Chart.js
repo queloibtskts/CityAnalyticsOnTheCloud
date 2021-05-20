@@ -5,13 +5,13 @@ const ColumnChart = ({data}) => (
     <div style={{ display: 'flex', maxWidth: 900 }}>
       <Chart
         width={900}
-        height={500}
+        height={600}
         chartType="ColumnChart"
         loader={<div>Loading Chart</div>}
         data={data}
         options={{
           title: 'Top 3 popular vulgar words in each state',
-          chartArea: { width: '40%' },
+          chartArea: { width: '60%' },
           hAxis: {
             title:  'State',
             minValue: 0,
@@ -20,6 +20,7 @@ const ColumnChart = ({data}) => (
             title: 'Frequence',
             minValue: 0,
           },
+          bar: { groupWidth: "70%" }
         }}
         legendToggle
       />

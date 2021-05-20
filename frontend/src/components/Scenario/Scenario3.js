@@ -52,21 +52,11 @@ const useStyles = makeStyles((theme) => ({
 const Scenario3 = () => {
   const scenario3classes = useStyles();
   const [scenarioData, setScenarioData] = useState([]);
-  const [testData, setTestData] = useState();
   useEffect(() => {
     const fetchData = async () => {
       const scenarioResponse = await apis.getScenarioThree();
       if (scenarioResponse.status === 200) {
         setScenarioData(scenarioResponse.data.AU);
-      }
-    };
-    fetchData();
-  }, []);
-  useEffect(() => {
-    const fetchData = async () => {
-      const testNameResponse = await apis.getSamples();//test
-      if (testNameResponse.status === 200) {
-        setTestData(testNameResponse.data.dbname);
       }
     };
     fetchData();
@@ -78,8 +68,7 @@ const Scenario3 = () => {
       <Grid container spacing={3}>
         <Grid item xs={12} md={8} lg={9}>
           <Paper className={fixedHeightPaper}>
-            <WordCloud data={scenarioData} />
-            <div>{testData}</div>
+            <WordCloud data={scenarioData} title={'vulgarWordFreqAU'}/>
           </Paper>
         </Grid>
         <Grid item xs={12} md={4} lg={3}>

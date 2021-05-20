@@ -18,48 +18,44 @@ def connect_to_database(database_name, server):
     except:
         return server.create(database_name)
 
-DBNAME = 'vulgar_tweet_by_search'
-db = connect_to_database(DBNAME, server)
+vulgarDBNAME = 'vulgar_tweet_by_search'
+vulgardb = connect_to_database(vulgarDBNAME, server)
 
+cleanDBNAME = 'clean_tweet_by_search'
+cleandb = connect_to_database(cleanDBNAME, server)
+
+vulgarWordFreq = vulgardb.view('language/vulgarWordFreq', group=True)
+
+mocks_scenario2 = {
+    "WA": ['WA(word1,word2, word3)', 127, 111, 10],
+    "QLD": ['QLD(word1,word2, word3)', 111, 100, 1],
+    "NT": ['NT(word1,word2, word3)', 127, 111, 10],
+    "NSW": ['NSW(word1,word2, word3)', 127, 111, 10],
+    "VIC": ['VIC(word1,word2, word3)', 127, 111, 10],
+    "TAS": ['TAS(word1,word2, word3)', 127, 111, 10],
+}
 
 @app.route('/scenario2', methods=['GET'])
 def get_scenario_two():
     return jsonify(mocks_scenario2)
 
-mocks_scenario2 = []
-
-viewVulgarWordFreq = db.view('language/vulgarWordFreq', group=True)
+vulgarWordFreqAU = vulgardb.view('language/vulgarWordFreqAU', group=True)
 
 @app.route('/scenario3', methods=['GET'])
 def get_scenario_three():
-    return jsonify(mocks_cenario3) # view_reformatter(viewVulgarWordFreq.rows)
+    return jsonify(view_reformatterAU(vulgarWordFreqAU.rows))
 
-mocks_cenario3 = {
-    "AU": [
-      {
-        "text": "Cvulgar11",
-        "value": 100
-      },
-      {
-        "text": "Cvulgar22",
-        "value": 100
-      },
-      {
-        "text": "Cvulgar1",
-        "value": 100
-      },
-      {
-        "text": "Cvulgar2s",
-        "value": 100
-      }
-    ],
-}
+vulgar_viewHashtagFreq = vulgardb.view('language/hashtagFreq', group=True)
+clean_viewHashtagFreq = cleandb.view('language/hashtagFreq', group=True)
 
-viewHashtagFreqAU = db.view('language/hashtagFreqAU', group=True)
+# print(clean_viewHashtagFreq.rows)
+@app.route('/scenario4/vulgar', methods=['GET'])
+def get_scenario_four_vulgar():
+    return jsonify(view_reformatter(vulgar_viewHashtagFreq.rows))
 
-@app.route('/scenario4', methods=['GET'])
-def get_scenario_four():
-    return jsonify(view_reformatterAU(viewHashtagFreqAU.rows))
+@app.route('/scenario4/clean', methods=['GET'])
+def get_scenario_four_clean():
+    return jsonify(view_reformatter(vulgar_viewHashtagFreq.rows)) # change to view_reformatter(clean_viewHashtagFreq.rows)
 
 # Error Handling
 @app.errorhandler(400)
@@ -70,11 +66,6 @@ def bad_request():
 @app.route('/')
 def hello_world():
     return 'Hello World!'
-
-
-@app.route('/samples', methods=['GET'])
-def get_samples():
-    return jsonify({'dbname': db._name + 'successful!'})
 
 if __name__ == '__main__':
     app.run()

@@ -52,31 +52,38 @@ const useStyles = makeStyles((theme) => ({
 
 const Scenario4 = () => {
   const scenario4classes = useStyles();
-  const [scenarioData, setScenarioData] = useState([]);
-  const [scenarioAllData, setScenarioAllData] = useState({});
+  const [scenarioVulgarData, setScenarioVulgarData] = useState([]);
+  const [scenarioAllVulgarData, setScenarioAllVulgarData] = useState({});
+  const [scenarioCleanData, setScenarioCleanData] = useState([]);
+  const [scenarioAllCleanData, setScenarioAllCleanData] = useState({});
   useEffect(() => {
     const fetchData = async () => {
-      const scenarioResponse = await apis.getScenarioFour();
-      if (scenarioResponse.status === 200) {
-        setScenarioAllData(scenarioResponse.data);
+      const scenarioCleanResponse = await apis.getScenarioFourClean();
+      const scenarioVulgarResponse = await apis.getScenarioFourVulgar();
+      if (scenarioCleanResponse.status === 200) {
+        setScenarioAllCleanData(scenarioCleanResponse.data);
+      }
+      if (scenarioVulgarResponse.status === 200) {
+        setScenarioAllVulgarData(scenarioVulgarResponse.data);
       }
     };
     fetchData();
   }, []);
 
-  const WA = ()  => (setScenarioData(scenarioAllData.VIC));
-  const QL = () => (setScenarioData(scenarioAllData.VIC));
-  const NT = () => (setScenarioData(scenarioAllData.VIC));
-  const NSW = () => (setScenarioData(scenarioAllData.VIC));
-  const VIC = () => (setScenarioData(scenarioAllData.VIC));
-  const TAS = () => (setScenarioData(scenarioAllData.VIC));
+  const WA = ()  => {setScenarioVulgarData(scenarioAllVulgarData.WA); setScenarioCleanData(scenarioAllCleanData.WA)};
+  const QLD = () => {setScenarioVulgarData(scenarioAllVulgarData.QLD); setScenarioCleanData(scenarioAllCleanData.QLD)};
+  const NT = () => {setScenarioVulgarData(scenarioAllVulgarData.NT); setScenarioCleanData(scenarioAllCleanData.NT)};
+  const NSW = () => {setScenarioVulgarData(scenarioAllVulgarData.NSW); setScenarioCleanData(scenarioAllCleanData.NSW)};
+  const VIC = () => {setScenarioVulgarData(scenarioAllVulgarData.VIC); setScenarioCleanData(scenarioAllCleanData.VIC)};
+  const TAS = () => {setScenarioVulgarData(scenarioAllVulgarData.TAS); setScenarioCleanData(scenarioAllCleanData.TAS)};
   const fixedHeightPaper = clsx(scenario4classes.paper, scenario4classes.fixedHeight);
   return(
     <div>
       <Grid container spacing={3}>
         <Grid item xs={12} md={8} lg={9}>
           <Paper className={fixedHeightPaper}>
-            <WordCloud data={scenarioData} />
+            <WordCloud data={scenarioVulgarData} title={'vuglar_viewHashtagFreq'}/>
+            <WordCloud data={scenarioCleanData} title={'clean_viewHashtagFreq'}/>
           </Paper>
         </Grid>
         <Grid item xs={12} md={4} lg={3}>
@@ -84,12 +91,11 @@ const Scenario4 = () => {
             <Title>Tasks</Title>
             <TimePickers />
             <Button onClick={WA} className={scenario4classes.button}>Western Australia</Button>
-            <Button onClick={QL} color="primary">Queensland</Button>
+            <Button onClick={QLD} color="primary">Queensland</Button>
             <Button onClick={NT} color="secondary">Northern Territory</Button>
             <Button onClick={NSW}>New South Wales</Button>
             <Button onClick={VIC} color="primary">Victoria</Button>
             <Button onClick={TAS} color="primary">Tasmania</Button>
-            <Button onClick={TAS} color="secondary" variant="contained">All about clean</Button>
           </Paper>
         </Grid>
         <Grid item xs={12}>

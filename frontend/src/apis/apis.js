@@ -23,16 +23,16 @@ export const getScenarioThree = ( ) => axios({
 // Finish getScenario3//
 
 
-// Start getScenario3//
-export const getScenarioFour = ( ) => axios({
+// Start getScenario4Clean//
+export const getScenarioFourClean = ( ) => axios({
   method: 'get',
-  url: `${baseUrl}/scenario4`,
+  url: `${baseUrl}/scenario4/clean`,
 });
-// Finish getScenario3//
+// Finish getScenario4Clean//
 
-// Start getSamples//
-export const getSamples = ( ) => axios({
+// Start getScenario4Vulgar//
+export const getScenarioFourVulgar = ( ) => axios({
   method: 'get',
-  url: `${baseUrl}/samples`,
+  url: `${baseUrl}/scenario4/vulgar`,
 });
-// Finish getSamples//
+// Finish getScenario4Vulgar//
