@@ -5,9 +5,5 @@ Setup
 
 Docker
 -----
-- run `docker-compose up`
+- run `docker-compose up` or  `docker-compose up --build`
 https://docs.docker.com/compose/gettingstarted/
-
-Set redis
------
-https://github.com/FlashXu/CCC_A2/blob/master/backend/utils.py
