@@ -3,8 +3,7 @@ import redis
 from flask import Flask, jsonify, make_response
 import couchdb
 from flask_cors import CORS
-from utils import view_reformatter
-from utils import getTop3VulgarWords
+from utils import view_reformatter, getTop3VulgarWords
 cache = redis.Redis(host='redis', port=6379)
 
 app = Flask(__name__)
@@ -27,7 +26,7 @@ cleandb = connect_to_database(cleanDBNAME, server)
 URL_vulgarWordFreq = 'language/vulgarWordFreq'
 URL_vulgarWordFreqAU = 'language/vulgarWordFreqAU'
 URL_hashtagFreq = 'language/hashtagFreq'
-URL_hashtagFreqAU = 'language/hashtagFreqAU'
+# URL_hashtagFreqAU = 'language/hashtagFreqAU'
 URL_countTweetByStates = 'language/countTweetByStates'
 
 # Get rows of views
@@ -39,13 +38,13 @@ vulgarWordFreqTop3 = view_reformatter(getTop3VulgarWords(
 vulgarWordFreqAU = view_reformatter(vulgardb.view(URL_vulgarWordFreqAU, group=True).rows,
                                     URL_vulgarWordFreqAU) # vulgar word frequency in australia
 vulgar_viewHashtagFreq = view_reformatter(vulgardb.view(URL_hashtagFreq, group=True).rows,
-                            URL_hashtagFreq) # hashtag frequency in vulgar tweets from each state
+                            URL_hashtagFreq, isRemovingNonAscii = True) # hashtag frequency in vulgar tweets from each state
 clean_viewHashtagFreq = view_reformatter(cleandb.view(URL_hashtagFreq, group=True).rows,
-                            URL_hashtagFreq) # hashtag frequency in clean tweets from each state
-vulgar_viewHashtagFreqAU = view_reformatter(vulgardb.view(URL_hashtagFreqAU, group=True).rows,
-                            URL_hashtagFreqAU) # hashtag frequency in vulgar tweets in australia
-clean_viewHashtagFreqAU = view_reformatter(cleandb.view(URL_hashtagFreqAU, group=True).rows,
-                            URL_hashtagFreqAU) # hashtag frequency in clean tweets in australia
+                            URL_hashtagFreq, isRemovingNonAscii = True) # hashtag frequency in clean tweets from each state
+# vulgar_viewHashtagFreqAU = view_reformatter(vulgardb.view(URL_hashtagFreqAU, group=True).rows,
+#                             URL_hashtagFreqAU, isRemovingNonAscii = True) # hashtag frequency in vulgar tweets in australia
+# clean_viewHashtagFreqAU = view_reformatter(cleandb.view(URL_hashtagFreqAU, group=True).rows,
+#                             URL_hashtagFreqAU, isRemovingNonAscii = True) # hashtag frequency in clean tweets in australia
 vulgar_countTweetByStates = vulgardb.view(URL_countTweetByStates, group=True) # vulgar tweet count in each state
 clean_countTweetByStates = vulgardb.view(URL_countTweetByStates, group=True) # clean tweet count in each state
 
