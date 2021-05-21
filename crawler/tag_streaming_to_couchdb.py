@@ -44,6 +44,7 @@ api = tweepy.API(auth, wait_on_rate_limit = True)
 
 
 text_list = []
+id_list = []
 
 with open("swear_word.txt", 'r') as f:
     for line in f:
@@ -58,6 +59,15 @@ with open("swear_word.txt", 'r') as f:
 class CouchDBStreamListener(tweepy.StreamListener):
     def on_data(self, data):
         try:
+            id_str = json.loads(data)['id_str']
+            if(id_str in id_list):
+                return True 
+            else:
+                if(len(id_list) >= 1000000):
+                    id_list.clear()
+
+                id_list.append(id_str)
+
             text = json.loads(data)['text']
             text = p.clean(text)
             text = text.lower().split()
