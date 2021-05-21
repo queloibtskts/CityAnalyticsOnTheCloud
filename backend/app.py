@@ -27,6 +27,7 @@ cleandb = connect_to_database(cleanDBNAME, server)
 vulgarWordFreq = vulgardb.view('language/vulgarWordFreq', group=True)
 
 mocks_scenario2 = {
+    "title":['State', 'TOP1', 'TOP2', 'TOP3'],
     "WA": ['WA(word1,word2, word3)', 127, 111, 10],
     "QLD": ['QLD(word1,word2, word3)', 111, 100, 1],
     "NT": ['NT(word1,word2, word3)', 127, 111, 10],
@@ -48,15 +49,13 @@ def get_scenario_three():
 vulgar_viewHashtagFreq = vulgardb.view('language/hashtagFreq', group=True)
 clean_viewHashtagFreq = cleandb.view('language/hashtagFreq', group=True)
 
-# print(clean_viewHashtagFreq.rows)
 @app.route('/scenario4/vulgar', methods=['GET'])
 def get_scenario_four_vulgar():
     return jsonify(view_reformatter(vulgar_viewHashtagFreq.rows))
 
 @app.route('/scenario4/clean', methods=['GET'])
 def get_scenario_four_clean():
-    return jsonify(view_reformatter(vulgar_viewHashtagFreq.rows)) # change to view_reformatter(clean_viewHashtagFreq.rows)
-
+    return jsonify(view_reformatter(clean_viewHashtagFreq.rows))
 # Error Handling
 @app.errorhandler(400)
 def bad_request():

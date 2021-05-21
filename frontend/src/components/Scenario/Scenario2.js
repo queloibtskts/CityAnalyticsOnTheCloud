@@ -46,17 +46,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-
-const data = [
-  ['State', 'TOP1', 'TOP2', 'TOP3'],
-  ['WA(word1,word2, word3)', 127, 111, 10],
-  ['QLD(word1,word2, word3)', 111, 100, 1],
-  ['NT(word1,word2, word3)', 127, 111, 10],
-  ['NSW(word1,word2, word3)', 127, 111, 10],
-  ['VIC(word1,word2, word3)', 127, 111, 10],
-  ['TAS(word1,word2, word3)', 127, 111, 10],
-];
-
 const Scenario2 = () => {
   const scenario2classes = useStyles();
   const fixedHeightPaper = clsx(scenario2classes.paper, scenario2classes.fixedHeight);
@@ -65,12 +54,12 @@ const Scenario2 = () => {
     const fetchData = async () => {
       const scenarioResponse = await apis.getScenarioTwo();
       if (scenarioResponse.status === 200) {
-        setScenarioData(Array.from((Object.values(scenarioResponse.data))));
+        setScenarioData(Array.from(Object.values(scenarioResponse.data)).reverse());
       }
     };
     fetchData();
   }, []);
-
+  
   return(
     <div>
       <Grid container spacing={3}>

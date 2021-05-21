@@ -35,7 +35,6 @@ const useStyles = makeStyles((theme) => ({
     height: '100vh',
     overflow: 'auto',
   },
-
   paper: {
     padding: theme.spacing(2),
     display: 'flex',
@@ -69,7 +68,6 @@ const Scenario4 = () => {
     };
     fetchData();
   }, []);
-
   const WA = ()  => {setScenarioVulgarData(scenarioAllVulgarData.WA); setScenarioCleanData(scenarioAllCleanData.WA)};
   const QLD = () => {setScenarioVulgarData(scenarioAllVulgarData.QLD); setScenarioCleanData(scenarioAllCleanData.QLD)};
   const NT = () => {setScenarioVulgarData(scenarioAllVulgarData.NT); setScenarioCleanData(scenarioAllCleanData.NT)};
@@ -82,8 +80,19 @@ const Scenario4 = () => {
       <Grid container spacing={3}>
         <Grid item xs={12} md={8} lg={9}>
           <Paper className={fixedHeightPaper}>
-            <WordCloud data={scenarioVulgarData} title={'vuglar_viewHashtagFreq'}/>
-            <WordCloud data={scenarioCleanData} title={'clean_viewHashtagFreq'}/>
+            <Grid
+              container
+              direction="row"
+              justify="space-around"
+              alignItems="center"
+            >
+              <Grid item xs>
+                <WordCloud data={scenarioVulgarData} title={'vuglar_viewHashtagFreq'} size={[400, 300]}/>
+              </Grid>
+              <Grid item xs>
+                <WordCloud data={scenarioCleanData} title={'clean_viewHashtagFreq'} size={[400, 300]}/>
+              </Grid>
+           </Grid>
           </Paper>
         </Grid>
         <Grid item xs={12} md={4} lg={3}>

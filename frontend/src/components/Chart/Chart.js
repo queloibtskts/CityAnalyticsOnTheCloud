@@ -1,5 +1,6 @@
 import React from "react";
 import Chart from "react-google-charts";
+
 const ColumnChart = ({data}) => (
   <div>
     <div style={{ display: 'flex', maxWidth: 900 }}>

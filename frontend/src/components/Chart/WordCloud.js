@@ -1,15 +1,14 @@
 import React from "react";
 import ReactWordcloud from "react-wordcloud";
-import Typography from '@material-ui/core/Typography';
-
-const size = [800, 600];
+import Title from '../Dashboard/Title';
 
 const WordCloud = ({
   data,
-  title
+  title,
+  size
 })  => (
   <>
-  <Typography>{title}</Typography>
+  <Title>{title}</Title>
   <ReactWordcloud
     words={data}
     size={size} />
