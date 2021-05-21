@@ -29,6 +29,8 @@ n_tweets = 100
 
 
 text_list = []
+id_list = []
+
 
 def open_txt():
     with open("swear_word.txt", 'r') as f:
@@ -41,7 +43,15 @@ def open_txt():
 class StdOutListener(StreamListener):
     def on_data(self, data):
         try:
-            
+            id_str = json.loads(data)['id_str']
+            if(id_str in id_list):
+                return True 
+            else:
+                if(len(id_list) >= 1000000):
+                    id_list.clear()
+
+                id_list.append(id_str)
+                
             text = json.loads(data)['text']
             text = p.clean(text)
             text = text.lower().split()
