@@ -12,5 +12,9 @@ COPY streaming_to_couchdb.py
 COPY swear_word.txt
 
 RUN pip3 install --upgrade pip3
+RUN pip3 install tweepy
+RUN pip3 install tweet-preprocessor
+RUN pip3 install couchdb
+
 
 CMD python3 streaming_to_couchdb.py
