@@ -20,18 +20,17 @@ vulgardb = connect_to_database(vulgarDBNAME, server)
 cleanDBNAME = 'clean_tweet_by_search'
 cleandb = connect_to_database(cleanDBNAME, server)
 
-URL_vulgarWordFreq = 'language/vulgarWordFreq'
+# URL_vulgarWordFreq = 'language/vulgarWordFreq'
 URL_vulgarWordFreqAU = 'language/vulgarWordFreqAU'
 URL_hashtagFreq = 'language/hashtagFreq'
 # URL_hashtagFreqAU = 'language/hashtagFreqAU'
-URL_countTweetByStates = 'language/countTweetByStates'
 
 # Get rows of views
-vulgarWordFreq = view_reformatter(vulgardb.view(URL_vulgarWordFreq, group=True).rows,
-                                  URL_vulgarWordFreq)  # vulgar word frequency in each state
-vulgarWordFreqTop3 = getTop3VulgarWords(
-    vulgardb.view(URL_vulgarWordFreq, group=True).rows
-)  # top3 vulgar word frequency in each state
+# vulgarWordFreq = view_reformatter(vulgardb.view(URL_vulgarWordFreq, group=True).rows,
+#                                   URL_vulgarWordFreq)  # vulgar word frequency in each state
+# vulgarWordFreqTop3 = getTop3VulgarWords(
+#     vulgardb.view(URL_vulgarWordFreq, group=True).rows
+# )  # top3 vulgar word frequency in each state
 vulgarWordFreqAU = view_reformatter(vulgardb.view(URL_vulgarWordFreqAU, group=True).rows,
                                     URL_vulgarWordFreqAU)  # vulgar word frequency in australia
 vulgar_viewHashtagFreq = view_reformatter(vulgardb.view(URL_hashtagFreq, group=True).rows,
@@ -44,15 +43,7 @@ clean_viewHashtagFreq = view_reformatter(cleandb.view(URL_hashtagFreq, group=Tru
 #                             URL_hashtagFreqAU, isRemovingNonAscii = True) # hashtag frequency in vulgar tweets in australia
 # clean_viewHashtagFreqAU = view_reformatter(cleandb.view(URL_hashtagFreqAU, group=True).rows,
 #                             URL_hashtagFreqAU, isRemovingNonAscii = True) # hashtag frequency in clean tweets in australia
-vulgar_countTweetByStates = vulgardb.view(URL_countTweetByStates, group=True
-                                          )  # vulgar tweet count in each state
-clean_countTweetByStates = cleandb.view(URL_countTweetByStates, group=True
-                                         )  # clean tweet count in each state
 
-# create csv for Tableau visualisation
-top3VulgarWordsJson_to_CSV(vulgarWordFreqTop3, vulgar_countTweetByStates)
-countTweetsByStateJson_to_CSV(clean_countTweetByStates, vulgar_countTweetByStates)
-countTweetsByStateJson_to_CSV2(clean_countTweetByStates, vulgar_countTweetByStates)
 
 @app.route('/scenario3', methods=['GET'])
 def get_scenario_three():
