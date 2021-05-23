@@ -32,10 +32,13 @@ def view_reformatter(rows, URL, isRemovingNonAscii=False):
         return all_freqs
 
 def getTop3VulgarWords(rows):
+    '''This function returns the word-frequency dict of top 3 most used vulgar word in each state.
+    If ties exist, rank alphabetically.'''
     newrows = []
     for row in rows:
         newfreq = {}
         freq = row['value']
+        freq = {k: freq[k] for k in sorted(freq)} # rank alphabetically
         top3Freq = {k: freq[k] for k in sorted(freq, key=lambda x: freq[x], reverse=True)[:3]}
         newfreq['key'] = row['key']
         newfreq['value'] = top3Freq
