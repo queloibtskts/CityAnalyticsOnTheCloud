@@ -3,19 +3,16 @@ import redis
 from flask import Flask, jsonify, make_response
 import couchdb
 from flask_cors import CORS
-from utils import view_reformatter, getTop3VulgarWords
+from utils import *  # Ugh.. "unresolved reference" error maybe an IDE issue
 cache = redis.Redis(host='redis', port=6379)
 
 app = Flask(__name__)
 CORS(app)
 
 server = couchdb.Server('http://admin:12345@127.0.0.1:5984/') # may change 127.0.0.1 to 172.26.134.127
+# if reduce_overflow_error: set config -> query_server_config -> reduce_limit to false in GUI
+# if timeout error: set config -> couchdb -> os_process_timeout to 50000 or larger in GUI
 
-def connect_to_database(database_name, server):
-    try:
-        return server[database_name]
-    except:
-        return server.create(database_name)
 
 vulgarDBNAME = 'vulgar_tweet_by_search'
 vulgardb = connect_to_database(vulgarDBNAME, server)
@@ -31,25 +28,32 @@ URL_countTweetByStates = 'language/countTweetByStates'
 
 # Get rows of views
 vulgarWordFreq = view_reformatter(vulgardb.view(URL_vulgarWordFreq, group=True).rows,
-                                  URL_vulgarWordFreq) # vulgar word frequency in each state
-vulgarWordFreqTop3 = view_reformatter(getTop3VulgarWords(
-                                vulgardb.view(URL_vulgarWordFreq, group=True).rows),
-                                URL_vulgarWordFreq) # top3 vulgar word frequency in each state
+                                  URL_vulgarWordFreq)  # vulgar word frequency in each state
+vulgarWordFreqTop3 = getTop3VulgarWords(
+    vulgardb.view(URL_vulgarWordFreq, group=True).rows
+)  # top3 vulgar word frequency in each state
 vulgarWordFreqAU = view_reformatter(vulgardb.view(URL_vulgarWordFreqAU, group=True).rows,
-                                    URL_vulgarWordFreqAU) # vulgar word frequency in australia
+                                    URL_vulgarWordFreqAU)  # vulgar word frequency in australia
 vulgar_viewHashtagFreq = view_reformatter(vulgardb.view(URL_hashtagFreq, group=True).rows,
-                            URL_hashtagFreq, isRemovingNonAscii = True) # hashtag frequency in vulgar tweets from each state
+                                          URL_hashtagFreq, isRemovingNonAscii=True
+                                          )  # hashtag frequency in vulgar tweets from each state
 clean_viewHashtagFreq = view_reformatter(cleandb.view(URL_hashtagFreq, group=True).rows,
-                            URL_hashtagFreq, isRemovingNonAscii = True) # hashtag frequency in clean tweets from each state
+                                         URL_hashtagFreq, isRemovingNonAscii=True
+                                         )  # hashtag frequency in clean tweets from each state
 # vulgar_viewHashtagFreqAU = view_reformatter(vulgardb.view(URL_hashtagFreqAU, group=True).rows,
 #                             URL_hashtagFreqAU, isRemovingNonAscii = True) # hashtag frequency in vulgar tweets in australia
 # clean_viewHashtagFreqAU = view_reformatter(cleandb.view(URL_hashtagFreqAU, group=True).rows,
 #                             URL_hashtagFreqAU, isRemovingNonAscii = True) # hashtag frequency in clean tweets in australia
-vulgar_countTweetByStates = vulgardb.view(URL_countTweetByStates, group=True) # vulgar tweet count in each state
-clean_countTweetByStates = vulgardb.view(URL_countTweetByStates, group=True) # clean tweet count in each state
+vulgar_countTweetByStates = vulgardb.view(URL_countTweetByStates, group=True
+                                          )  # vulgar tweet count in each state
+clean_countTweetByStates = vulgardb.view(URL_countTweetByStates, group=True
+                                         )  # clean tweet count in each state
+
+# create csv for Tableau visualisation
+top3VulgarWordsJson_to_CSV(vulgarWordFreqTop3, vulgar_countTweetByStates)
 
 mocks_scenario2 = {
-    "title":['State', 'TOP1', 'TOP2', 'TOP3'],
+    "title": ['State', 'TOP1', 'TOP2', 'TOP3'],
     "WA": ['WA(word1,word2,word3)', 127, 111, 10],
     "QLD": ['QLD(word1,word2,word3)', 111, 100, 1],
     "NT": ['NT(word1,word2,word3)', 127, 111, 10],
