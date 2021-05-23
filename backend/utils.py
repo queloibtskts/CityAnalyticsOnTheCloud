@@ -52,24 +52,32 @@ def top3VulgarWordsJson_to_CSV(vulgarWordFreq_top3, vulgar_countTweetByStates):
 
     # define columns in the csv
     col_state = []
-    col_category = [] # name of each vulgar word
+    col_category = [] # total, top1, top2, top3
+    col_vword = [] # name of each vulgar word
     col_freq = [] # frequencies
+    categories = ["top1", "top2", "top3"]
 
     # the conversion begins
     for row in vulgar_countTweetByStates:
         col_state.append(row['key'])
         col_category.append('total')
+        col_vword.append('TOTAL')
         col_freq.append(row['value']) # total number of vulgar tweets in this state
 
     for row in vulgarWordFreq_top3:
         state = row['key']
         dict_vwords = row['value'] # dict of popular vulgar words (top 3) in each state and their frequencies
-        for (vword, freq) in dict_vwords.items():
+        for i in range(len(dict_vwords)):
+            vword = list(dict_vwords.keys())[i]
+            freq = list(dict_vwords.values())[i]
+            category = categories[i]
+
             col_state.append(state)
-            col_category.append(vword)
+            col_category.append(category)
+            col_vword.append(vword)
             col_freq.append(freq)
 
-    toDF = {'state': col_state, 'category': col_category, 'frequency': col_freq}
+    toDF = {'state': col_state, 'category': col_category, 'frequency': col_freq, 'vulgar_word': col_vword}
     df = pd.DataFrame(toDF)
     try:
         df.to_csv(csvToBe)
