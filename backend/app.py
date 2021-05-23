@@ -9,10 +9,15 @@ cache = redis.Redis(host='redis', port=6379)
 app = Flask(__name__)
 CORS(app)
 
-server = couchdb.Server('http://admin:12345@127.0.0.1:5984/') # may change 127.0.0.1 to 172.26.134.127
-# if reduce_overflow_error: set config -> query_server_config -> reduce_limit to false in GUI
-# if timeout error: set config -> couchdb -> os_process_timeout to 50000 or larger in GUI
+# server = couchdb.Server('http://admin:12345@127.0.0.1:5984/') # may change 127.0.0.1 to 172.26.134.127
+# # if reduce_overflow_error: set config -> query_server_config -> reduce_limit to false in GUI
+# # if timeout error: set config -> couchdb -> os_process_timeout to 50000 or larger in GUI
 
+# couch db auth
+# ADMIN_USERNAME = 'admin'
+# ADMIN_PASSWORD = '12345'
+server = couchdb.Server('http://admin:12345@mycouchdb:5984/') #use docker - can not connect to couchdb
+# may change 127.0.0.1 to 172.26.134.127
 
 vulgarDBNAME = 'vulgar_tweet_by_search'
 vulgardb = connect_to_database(vulgarDBNAME, server)

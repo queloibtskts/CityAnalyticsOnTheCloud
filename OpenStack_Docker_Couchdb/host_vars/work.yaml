@@ -1,0 +1,51 @@
+# Common vars
+availability_zone: melbourne-qh2-uom
+
+# Volume
+volumes:
+  - vol_name: worker-vol-1
+    vol_size: 50
+    device: /dev/vdb
+  - vol_name: worker-vol-2
+    vol_size: 50
+    device: /dev/vdb
+  - vol_name: worker-vol-3
+    vol_size: 50
+    device: /dev/vdb
+  - vol_name: couchdb-vol-1
+    vol_size: 200
+    device: /dev/vdb
+
+# Security group
+security_groups:
+  - name: ubuntu_security_group
+    description: "security group for ubuntu server"
+    protocol: tcp
+    port_range_min: 1
+    port_range_max: 65535
+    remote_ip_prefix: 0.0.0.0/0
+
+# Instance
+instances:
+  - name: worker-1
+    volumes: ['worker-vol-1']
+    flavor: uom.mse.1c4g
+  - name: worker-2
+    volumes: ['worker-vol-2']
+    flavor: uom.mse.1c4g
+  - name: worker-3
+    volumes: ['worker-vol-3']
+    flavor: uom.mse.1c4g
+  - name: couchdb-1
+    volumes: ['couchdb-vol-1']
+    flavor: uom.mse.2c9g
+
+instance_image: f8b79936-6616-4a22-b55d-0d0a1d27bceb
+instance_key_name: ada
+
+# dockerhub_username:
+# dockerhub_password:
+# dockerhub_pulling_image: ada/test:map
+
+couchdb_user: admin
+couchdb_password: 12345

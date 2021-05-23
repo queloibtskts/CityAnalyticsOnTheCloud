@@ -36,7 +36,7 @@ until = "2021-04-22"
 text_list = []
 
 with open(
-        "F:/CHLOE/Study at UniMelb/2021S1_CCC/Assignment2/COMP90024_Assignment2/crawler/swear_word.txt",
+        "swear_word.txt",
         'r') as f:
     for line in f:
         line = line.strip('\t').strip()
@@ -55,13 +55,13 @@ if len(tweets)!=0:
         text = data_json['text']
         text = text.lower().split()
         # print(text)
-        
+
         id_str = json.loads(data)['id_str']
-        
+
         for i in range(len(text)):
             if (id_str in id_list):
                 continue
-            
+
             if ((text[i] + ' ' + text[(i + 1) % len(text)] + ' ' + text[(i + 2) % len(text)] + ' ' +
                  text[(i + 3) % len(text)] + ' ' + text[
                      (i + 4) % len(text)]) in text_list and is_in==False):
@@ -82,16 +82,15 @@ if len(tweets)!=0:
             elif ((text[i]) in text_list and is_in==False):
                 print(data)
                 is_in = True
-        
+
         if is_in:
             data_json['tag'] = {'vulgar_words': True}
             db1["tweet:%d" % data_json['id']] = data_json
         else:
             data_json['tag'] = {'vulgar_words': False}
             db2["tweet:%d" % data_json['id']] = data_json
-        
+
         id_list.append(id_str)
 
 else:
     print("Cannot search tweets\n")
-

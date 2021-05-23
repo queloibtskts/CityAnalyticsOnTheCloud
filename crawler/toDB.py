@@ -10,7 +10,7 @@ def connect_to_database(database_name, server):
         return server.create(database_name)
 
 
-server = couchdb.Server('http://admin:12345@127.0.0.1:5984/')
+server = couchdb.Server('http://admin:12345@mycouchdb:5984/')
 
 # db = server['tweets'] 
 database1 = 'vulgar_tweet_by_search'
@@ -21,7 +21,7 @@ db2 = connect_to_database(database2, server)
 
 
 
-with open("tag_tweets_keyword.json", 'r') as f:
+with open("temp.json", 'r') as f:
     for line in f:
         data = json.loads(line)
         if(data["tag"]["vulgar_words"] == "True"):

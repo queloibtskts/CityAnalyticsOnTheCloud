@@ -6,8 +6,11 @@
 #     password: '{{ dockerhub_password }}'
 
 
-- name: Pull an image called test
+- name: Create docker network called net-aio
   become: yes
-  docker_image:
-    name: '{{ dockerhub_pulling_image }}'
-    source: pull
+  docker_network:
+    name: net-aio
+  
+
+
+

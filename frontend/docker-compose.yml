@@ -13,3 +13,8 @@ services:
       - "3000:80"
     environment:
       - CHOKIDAR_USEPOLLING=true
+
+networks:
+  default:
+    external: true
+    name: net-aio

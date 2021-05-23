@@ -24,7 +24,7 @@ database2 = 'clean_tweet_by_search'
 # server.resource.credentials = (admin_username, admin_password)
 
 # connect to remote db server; comment 1 line below if connecting to local db server
-server = couchdb.Server('http://admin:12345@127.0.0.1:5984/')
+server = couchdb.Server('http://admin:12345@172.26.131.136:5984/')
 
 db1 = connect_to_database(database1, server)
 db2 = connect_to_database(database2, server)
@@ -44,6 +44,7 @@ api = tweepy.API(auth, wait_on_rate_limit = True)
 
 
 text_list = []
+id_list = []
 
 with open("swear_word.txt", 'r') as f:
     for line in f:
@@ -58,6 +59,15 @@ with open("swear_word.txt", 'r') as f:
 class CouchDBStreamListener(tweepy.StreamListener):
     def on_data(self, data):
         try:
+            id_str = json.loads(data)['id_str']
+            if(id_str in id_list):
+                return True
+            else:
+                if(len(id_list) >= 1000000):
+                    id_list.clear()
+
+                id_list.append(id_str)
+
             text = json.loads(data)['text']
             text = p.clean(text)
             text = text.lower().split()
@@ -67,26 +77,26 @@ class CouchDBStreamListener(tweepy.StreamListener):
                 if((text[i]+' '+text[(i+1)%len(text)]+' '+text[(i+2)%len(text)]+' '+text[(i+3)%len(text)]+' '+text[(i+4)%len(text)]) in text_list):
                     is_in = True
                     vulgar_words_used.append(text[i]+' '+text[(i+1)%len(text)]+' '+text[(i+2)%len(text)]+' '+text[(i+3)%len(text)]+' '+text[(i+4)%len(text)])
-                
+
                 elif((text[i]+' '+text[(i+1)%len(text)]+' '+text[(i+2)%len(text)]+' '+text[(i+3)%len(text)]) in text_list):
                     is_in = True
                     vulgar_words_used.append(text[i]+' '+text[(i+1)%len(text)]+' '+text[(i+2)%len(text)]+' '+text[(i+3)%len(text)])
-                
-    
+
+
                 elif((text[i]+' '+text[(i+1)%len(text)]+' '+text[(i+2)%len(text)]) in text_list):
                     is_in = True
                     vulgar_words_used.append(text[i]+' '+text[(i+1)%len(text)]+' '+text[(i+2)%len(text)])
-    
-    
+
+
                 elif((text[i]+' '+text[(i+1)%len(text)]) in text_list):
                     is_in = True
                     vulgar_words_used.append(text[i]+' '+text[(i+1)%len(text)])
-    
-    
+
+
                 elif((text[i]) in text_list):
                     is_in = True
                     vulgar_words_used.append(text[i])
-    
+
             data = json.loads(data)
             if is_in:
                 data['tag'] = {'vulgar_words': "True", 'vulgar_words_used': vulgar_words_used}
@@ -110,11 +120,11 @@ class CouchDBStreamListener(tweepy.StreamListener):
 
     def on_timeout(self):
         print("timeout")
-        return True 
+        return True
 while True:
     try:
         stream = tweepy.streaming.Stream(auth, CouchDBStreamListener())
-        stream.filter(locations=[110.01,-45.02,160.82,-12.02],languages=['en'])
+        stream.filter(locations=[72.25,-55.32,168.23,-9.09],languages=['en'])
     except:
         print("error")
         time.sleep(30)

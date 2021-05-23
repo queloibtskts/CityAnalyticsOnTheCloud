@@ -5,11 +5,11 @@
   roles:
     - role: add-ada
 
-# Docker
-- hosts: instance3
+# Docker Couchdb
+- hosts: couch
   vars_files:
-    - host_vars/mrc2.yaml
-    - host_vars/remote.yaml
+    - host_vars/work.yaml
+    - host_vars/workremote.yaml
   gather_facts: true
 
   roles:
@@ -17,4 +17,8 @@
     - role: docker-configuration-couchdb
     - role: docker-installation
     - role: docker-proxy
+    - role: docker-create-network
+    - role: docker-pull-image-couchdb
+    - role: docker-create-container-couchdb
+    - role: couchdb-setup
     - role: deploy

@@ -1,0 +1,16 @@
+# OpenStack
+- hosts: localhost
+  vars:
+    ansible_python_interpreter: /usr/local/bin/python3
+  vars_files:
+    - host_vars/work.yaml
+  gather_facts: true
+
+  roles:
+    # - role: openstack-common
+    - role: openstack-images
+    - role: openstack-volume
+    - role: openstack-security-group
+    - role: openstack-instance
+
+

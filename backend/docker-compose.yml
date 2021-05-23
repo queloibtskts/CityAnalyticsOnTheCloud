@@ -10,3 +10,8 @@ services:
       FLASK_ENV: development
   redis:
     image: "redis:alpine"
+
+networks:
+  default:
+    external: true
+    name: net-aio

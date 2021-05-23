@@ -1,14 +1,28 @@
+- name: copy frontend from local to remote hosts
+  become: yes
+  copy:
+    src: ../frontend
+    dest: /home/ubuntu
+    mode: u=rw
+
+- name: copy backend from local to remote hosts
+  become: yes
+  copy:
+    src: ../backend
+    dest: /home/ubuntu
+    mode: u=rw
+
 - name: run docker compose frontend
-  docker_compose: docker-compose.yml
-    project_src: "~/COMP90024_Assignment2/frontend/"
+  docker_compose:
+    project_src: /home/ubuntu/frontend
     build: yes
     remove_orphans: yes
     remove_volumes: yes
     recreate: always
 
 - name: run docker compose backend
-  docker_compose: docker-compose.yml
-    project_src: "~/COMP90024_Assignment2/backend/"
+  docker_compose:
+    project_src: /home/ubuntu/backend
     build: yes
     remove_orphans: yes
     remove_volumes: yes

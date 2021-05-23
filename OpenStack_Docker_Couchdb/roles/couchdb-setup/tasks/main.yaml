@@ -5,7 +5,7 @@
     url: http://127.0.0.1:5984
 
 
-- debug: 
+- debug:
     msg: "Couchdb is established"
 
 
@@ -21,7 +21,7 @@
 
 
 
-- debug: 
+- debug:
     msg: "A database called tweets is created"
 
 
@@ -33,19 +33,19 @@
     dest: /home/ubuntu/
     mode: u=rw
 
-- name: Copy streamCrawler.py from local to remote hosts
+- name: Copy streaming_to_couchdb.py from local to remote hosts
   become: yes
   copy:
-    src: streamCrawler.py
+    src: streaming_to_couchdb.py
     dest: /home/ubuntu/
     mode: u=rw
 
 
-- name: Create design document
+- name: Create clean_tweet_by_search design document
   become: yes
   shell: curl -X PUT http://{{ couchdb_user }}:{{ couchdb_password }}@127.0.0.1:5984/clean_tweet_by_search/_design/language --data-binary @design.json
 
-- name: Create design document
+- name: Create vulgar_tweet_by_search design document
   become: yes
   shell: curl -X PUT http://{{ couchdb_user }}:{{ couchdb_password }}@127.0.0.1:5984/vulgar_tweet_by_search/_design/language --data-binary @design.json
 

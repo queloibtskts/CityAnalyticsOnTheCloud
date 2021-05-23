@@ -1,5 +1,5 @@
 ---
-  
+
 - name: Create a docker container from existing couchdb image
   become: yes
   docker_container:
@@ -14,7 +14,8 @@
     state: started
     volumes:
       - /home/ubuntu/couchdb:/opt/couchdb/data
-
+    networks:
+      - name: net-aio
 
 
 
@@ -22,13 +23,7 @@
   become: yes
   shell: docker ps -a
   register: showallcontainers
-    
+
 
 - debug:
     var: showallcontainers
-    
-
-  
-
-
-
