@@ -74,6 +74,8 @@ const Scenario4 = () => {
   const NSW = () => {setScenarioVulgarData(scenarioAllVulgarData.NSW); setScenarioCleanData(scenarioAllCleanData.NSW)};
   const VIC = () => {setScenarioVulgarData(scenarioAllVulgarData.VIC); setScenarioCleanData(scenarioAllCleanData.VIC)};
   const TAS = () => {setScenarioVulgarData(scenarioAllVulgarData.TAS); setScenarioCleanData(scenarioAllCleanData.TAS)};
+  const ACT = () => {setScenarioVulgarData(scenarioAllVulgarData.ACT); setScenarioCleanData(scenarioAllCleanData.ACT)};
+  const SA = () => {setScenarioVulgarData(scenarioAllVulgarData.SA); setScenarioCleanData(scenarioAllCleanData.SA)};
   const fixedHeightPaper = clsx(scenario4classes.paper, scenario4classes.fixedHeight);
   return(
     <div>
@@ -105,6 +107,8 @@ const Scenario4 = () => {
             <Button onClick={NSW}>New South Wales</Button>
             <Button onClick={VIC} color="primary">Victoria</Button>
             <Button onClick={TAS} color="primary">Tasmania</Button>
+            <Button onClick={ACT} color="primary">South Australia</Button>
+            <Button onClick={SA} color="primary">Australian Capital Territory</Button>
           </Paper>
         </Grid>
         <Grid item xs={12}>
