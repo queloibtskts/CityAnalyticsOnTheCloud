@@ -11,10 +11,11 @@ import SaveAltIcon from '@material-ui/icons/SaveAlt';
 import SpellcheckIcon from '@material-ui/icons/Spellcheck';
 import InsertChartIcon from '@material-ui/icons/InsertChart';
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
+import MapOutlinedIcon from '@material-ui/icons/MapOutlined';
 import CompareArrowsIcon from '@material-ui/icons/CompareArrows';
 
 export const mainListItems = (
-  <div>
+  <>
     <Link to="/homepage">
       <ListItem button>
         <ListItemIcon>
@@ -31,16 +32,16 @@ export const mainListItems = (
         <ListItemText primary="Report" />
       </ListItem>
     </Link>
-  </div>
+  </>
 );
 
 export const secondaryListItems = (
-  <div>
+  <>
     <ListSubheader inset>Scenarios</ListSubheader>
     <Link to="/scenario1">
       <ListItem button>
         <ListItemIcon>
-          <AttachMoneyIcon />
+          <MapOutlinedIcon />
         </ListItemIcon>
         <ListItemText primary="Scenario 1" />
       </ListItem>
@@ -69,5 +70,13 @@ export const secondaryListItems = (
       <ListItemText primary="Scenario 4" />
     </ListItem>
     </Link>
-  </div>
+    <Link to="/scenario5">
+    <ListItem button>
+      <ListItemIcon>
+        <AttachMoneyIcon />
+      </ListItemIcon>
+      <ListItemText primary="Scenario 5" />
+    </ListItem>
+    </Link>
+  </>
 );
