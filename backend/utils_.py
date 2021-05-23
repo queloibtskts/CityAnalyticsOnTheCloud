@@ -1,5 +1,3 @@
-import pandas as pd
-
 def connect_to_database(database_name, server):
     try:
         return server[database_name]
