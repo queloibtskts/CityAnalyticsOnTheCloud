@@ -3,7 +3,7 @@ import redis
 from flask import Flask, jsonify, make_response
 import couchdb
 from flask_cors import CORS
-from utils import *  # Ugh.. "unresolved reference" error maybe an IDE issue
+from utils_ import *  # Ugh.. "unresolved reference" error maybe an IDE issue
 cache = redis.Redis(host='redis', port=6379)
 
 app = Flask(__name__)
@@ -46,11 +46,13 @@ clean_viewHashtagFreq = view_reformatter(cleandb.view(URL_hashtagFreq, group=Tru
 #                             URL_hashtagFreqAU, isRemovingNonAscii = True) # hashtag frequency in clean tweets in australia
 vulgar_countTweetByStates = vulgardb.view(URL_countTweetByStates, group=True
                                           )  # vulgar tweet count in each state
-clean_countTweetByStates = vulgardb.view(URL_countTweetByStates, group=True
+clean_countTweetByStates = cleandb.view(URL_countTweetByStates, group=True
                                          )  # clean tweet count in each state
 
 # create csv for Tableau visualisation
 top3VulgarWordsJson_to_CSV(vulgarWordFreqTop3, vulgar_countTweetByStates)
+countTweetsByStateJson_to_CSV(clean_countTweetByStates, vulgar_countTweetByStates)
+countTweetsByStateJson_to_CSV2(clean_countTweetByStates, vulgar_countTweetByStates)
 
 @app.route('/scenario3', methods=['GET'])
 def get_scenario_three():
