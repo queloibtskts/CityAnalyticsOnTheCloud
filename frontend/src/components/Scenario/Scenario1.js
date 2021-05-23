@@ -31,11 +31,11 @@ const Scenario1 = () => {
 
   const scenario1classes = useStyles();
 
-  const url = "https://public.tableau.com/views/choropleth_vulgarTweetPercentage/2?:language=en";
+  const url1 = "https://public.tableau.com/views/choropleth_vulgarTweetPercentage/2?:language=en";
 
   return(
     <div>
-      <Tableau url={url} />
+      <Tableau url={url1} />
       <Paper className={scenario1classes.paper}>
         <Description1 />
       </Paper>

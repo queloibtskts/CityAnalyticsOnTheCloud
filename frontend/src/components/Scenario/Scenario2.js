@@ -1,29 +1,9 @@
 /* eslint-disable no-unused-vars */
-import React, { useState, useEffect }from "react";
-import clsx from 'clsx';
-import * as apis from '../../apis/apis';
+import React from "react";
 import { makeStyles } from '@material-ui/core/styles';
-import Box from '@material-ui/core/Box';
-import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-import Task from '../Dashboard/Task';
 import Description2 from '../Dashboard/Description2';
-import Link from '@material-ui/core/Link';
-import Typography from '@material-ui/core/Typography';
-import ColumnChart from '../Chart/Chart'
-
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit">
-        CCC Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
+import Tableau from '../Dashboard/Tableau'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -48,40 +28,15 @@ const useStyles = makeStyles((theme) => ({
 
 const Scenario2 = () => {
   const scenario2classes = useStyles();
-  const fixedHeightPaper = clsx(scenario2classes.paper, scenario2classes.fixedHeight);
-  const [scenarioData, setScenarioData] = useState({});
-  useEffect(() => {
-    const fetchData = async () => {
-      const scenarioResponse = await apis.getScenarioTwo();
-      if (scenarioResponse.status === 200) {
-        setScenarioData(Array.from(Object.values(scenarioResponse.data)).reverse());
-      }
-    };
-    fetchData();
-  }, []);
+
+  const url2 = "https://public.tableau.com/views/top3vulgarWordsByState/2?:language=zh-Hans";
   
   return(
     <div>
-      <Grid container spacing={3}>
-        <Grid item xs={12} md={8} lg={9}>
-          <Paper className={fixedHeightPaper}>
-            <ColumnChart data={scenarioData}/>
-          </Paper>
-        </Grid>
-        <Grid item xs={12} md={4} lg={3}>
-          <Paper className={fixedHeightPaper}>
-            <Task />
-          </Paper>
-        </Grid>
-        <Grid item xs={12}>
-          <Paper className={scenario2classes.paper}>
-            <Description2 />
-          </Paper>
-        </Grid>
-      </Grid>
-      <Box pt={4}>
-        <Copyright />
-      </Box>
+      <Tableau url={url2} />
+      <Paper className={scenario2classes.paper}>
+        <Description2 />
+      </Paper>
     </div>
   )
 }

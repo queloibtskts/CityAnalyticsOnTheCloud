@@ -52,20 +52,6 @@ clean_countTweetByStates = vulgardb.view(URL_countTweetByStates, group=True
 # create csv for Tableau visualisation
 top3VulgarWordsJson_to_CSV(vulgarWordFreqTop3, vulgar_countTweetByStates)
 
-mocks_scenario2 = {
-    "title": ['State', 'TOP1', 'TOP2', 'TOP3'],
-    "WA": ['WA(word1,word2,word3)', 127, 111, 10],
-    "QLD": ['QLD(word1,word2,word3)', 111, 100, 1],
-    "NT": ['NT(word1,word2,word3)', 127, 111, 10],
-    "NSW": ['NSW(word1,word2,word3)', 127, 111, 10],
-    "VIC": ['VIC(word1,word2,word3)', 127, 111, 10],
-    "TAS": ['TAS(word1,word2,word3)', 127, 111, 10],
-}
-
-@app.route('/scenario2', methods=['GET'])
-def get_scenario_two():
-    return jsonify(mocks_scenario2)
-
 @app.route('/scenario3', methods=['GET'])
 def get_scenario_three():
     return jsonify(vulgarWordFreqAU)
