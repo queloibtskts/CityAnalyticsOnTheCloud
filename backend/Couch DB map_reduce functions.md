@@ -20,20 +20,23 @@ function (doc) {
       var loc2 = doc.user.location;
   }
   var stateNotFound = true;
-  var allLoc = ['victoria', 'act', 'new south wales', 'northern territory', 'queensland', 'tasmania', 'western australia', 'south australia'];
-  var abbres = {'VIC': 'victoria', 'NSW': 'new south wales', 'NT': 'northern territory', 'QLD': 'queensland', 'TAS': 'tasmania', 'WA': 'western australia', 'SA': 'south australia'};
-  for (var i=0; i < allLoc.length; i++) {
-      if ( ( loc_l && loc_l.includes(allLoc[i]) ) || ( loc2_l && loc2_l.includes(allLoc[i]) ) ) {
+  // var allLoc = ['victoria', 'act', 'new south wales', 'northern territory', 'queensland', 'tasmania', 'western australia', 'south australia'];
+  var abbres = {'australian capital territory': 'ACT', 'act': 'ACT', 'victoria': 'VIC', 'new south wales': 'NSW', 'northern territory': 'NT', 'queensland': 'QLD', 'tasmania': 'TAS', 'western australia': 'WA', 'south australia': 'SA'};
+  // var thisLoc = null;
+  for (var abbre in abbres) {
+      if ( ( loc_l && loc_l.includes(abbre) ) || ( loc2_l && loc2_l.includes(abbre) ) ) {
           // var thisLoc = allLoc[i];
           stateNotFound = false;
-          emit(allLoc[i], 1);
+          emit(abbres[abbre], 1);
+          break;
       }
   }
   if (stateNotFound) {
-      for (var abbre in abbres) {
-          if  ( ( loc && loc.includes(abbre) ) || ( loc2 && loc2.includes(abbre) ) ) {
-              // var thisLoc = abbres[abbre];
-              emit(abbres[abbre], 1);
+      for (var abbre1 in abbres) {
+          if  ( ( loc && loc.includes(abbre1) ) || ( loc2 && loc2.includes(abbre1) ) ) {
+              stateNotFound = false;
+              emit(abbres[abbre1], 1);
+              break;
           }
       }
   }
@@ -60,12 +63,13 @@ function (doc) {
       var loc2 = doc.user.location;
   }
   var stateNotFound = true;
-  var abbres = {'act': 'ACT', 'victoria': 'VIC', 'new south wales': 'NSW', 'northern territory': 'NT', 'queensland': 'QLD', 'tasmania': 'TAS', 'western australia': 'WA', 'south australia': 'SA'};
+  var abbres = {'australian capital territory': 'ACT', 'act': 'ACT', 'victoria': 'VIC', 'new south wales': 'NSW', 'northern territory': 'NT', 'queensland': 'QLD', 'tasmania': 'TAS', 'western australia': 'WA', 'south australia': 'SA'};
   var thisLoc = null;
   for (var abbre in abbres) {
       if  ( ( loc_l && loc_l.includes(abbre) ) || ( loc2_l && loc2_l.includes(abbre) ) ) {
           thisLoc = abbres[abbre];
           stateNotFound = false;
+          break;
       }
   }
   if (stateNotFound) {
@@ -73,6 +77,7 @@ function (doc) {
           if  ( ( loc && loc.includes(abbres[abbre1]) ) || ( loc2 && loc2.includes(abbres[abbre1]) ) ) {
               thisLoc = abbres[abbre1];
               stateNotFound = false;
+              break;
           }
       }
   }
@@ -169,12 +174,13 @@ function (doc) {
       var loc2 = doc.user.location;
   }
   var stateNotFound = true;
-  var abbres = {'act': 'ACT', 'victoria': 'VIC', 'new south wales': 'NSW', 'northern territory': 'NT', 'queensland': 'QLD', 'tasmania': 'TAS', 'western australia': 'WA', 'south australia': 'SA'};
+  var abbres = {'australian capital territory': 'ACT', 'act': 'ACT', 'victoria': 'VIC', 'new south wales': 'NSW', 'northern territory': 'NT', 'queensland': 'QLD', 'tasmania': 'TAS', 'western australia': 'WA', 'south australia': 'SA'};
   var thisLoc = null;
   for (var abbre in abbres) {
       if  ( ( loc_l && loc_l.includes(abbre) ) || ( loc2_l && loc2_l.includes(abbre) ) ) {
           thisLoc = abbres[abbre];
           stateNotFound = false;
+          break;
       }
   }
   if (stateNotFound) {
@@ -182,6 +188,7 @@ function (doc) {
           if  ( ( loc && loc.includes(abbres[abbre1]) ) || ( loc2 && loc2.includes(abbres[abbre1]) ) ) {
               thisLoc = abbres[abbre1];
               stateNotFound = false;
+              break;
           }
       }
   }
