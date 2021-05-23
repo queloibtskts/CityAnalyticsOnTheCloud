@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
 const Scenario2 = () => {
   const scenario2classes = useStyles();
 
-  const url2 = "https://public.tableau.com/views/top3vulgarWordsByState/2?:language=zh-Hans";
+  const url2 = "https://public.tableau.com/views/rankVulgarWords/2?:language=en";
   
   return(
     <div>

@@ -31,7 +31,7 @@ const Scenario1 = () => {
 
   const scenario1classes = useStyles();
 
-  const url1 = "https://public.tableau.com/views/choropleth_vulgarTweetPercentage/2?:language=en";
+  const url1 = "https://public.tableau.com/views/vulgarWordsByState/1?:language=en";
 
   return(
     <div>
