@@ -1,7 +1,7 @@
 import couchdb
 from utils_dataAnalysis import *  # Ugh.. "unresolved reference" error maybe an IDE issue
 
-server = couchdb.Server('http://admin:12354@127.0.0.1:5984/') # may change 127.0.0.1 to 172.26.134.127
+server = couchdb.Server('http://admin:12345@127.0.0.1:5984/') # may change 127.0.0.1 to 172.26.134.127
 # if reduce_overflow_error: set config -> query_server_config -> reduce_limit to false in GUI
 # if timeout error: set config -> couchdb -> os_process_timeout to 50000 or larger in GUI
 
@@ -27,6 +27,3 @@ clean_countTweetByStates = cleandb.view(URL_countTweetByStates, group=True
 top3VulgarWordsJson_to_CSV(vulgarWordFreqTop3, vulgar_countTweetByStates)
 countTweetsByStateJson_to_CSV(clean_countTweetByStates, vulgar_countTweetByStates)
 countTweetsByStateJson_to_CSV2(clean_countTweetByStates, vulgar_countTweetByStates)
-
-if __name__ == '__main__':
-    app.run()
