@@ -1,0 +1,17 @@
+---
+- hosts: localhost
+  gather_facts: true
+
+  roles:
+    - role: add-ada
+
+# Docker Couchdb
+- hosts: couch
+  vars_files:
+    - host_vars/work.yaml
+    - host_vars/workremote.yaml
+  gather_facts: true
+
+  roles:
+    - role: openstack-proxy
+    - role: deploy
