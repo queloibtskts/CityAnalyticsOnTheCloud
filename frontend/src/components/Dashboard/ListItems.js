@@ -24,7 +24,7 @@ export const mainListItems = (
         <ListItemText primary="Homepage" />
       </ListItem>
     </Link>
-    <Link to="/files/CCC-Group8-demo.pdf" target="_blank" download>
+    <Link to="/files/CCC-Group8-report.pdf" target="_blank" download>
       <ListItem button>
         <ListItemIcon>
           <SaveAltIcon />
