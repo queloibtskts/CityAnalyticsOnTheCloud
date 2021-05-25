@@ -1,6 +1,5 @@
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Homepage from '../Scenario/Homepage';
-import Reportpage from '../Scenario/Reportpage';
 import Scenario1 from '../Scenario/Scenario1';
 import Scenario2 from '../Scenario/Scenario2';
 import Scenario3 from '../Scenario/Scenario3';
@@ -38,7 +37,6 @@ const App = () => {
         <Switch>
           <Route exact path="/" component={Homepage} />
           <Route exact path="/homepage" component={Homepage} />
-          <Route path="/report" component={Reportpage} />
           <Route path="/scenario1" component={Scenario1} />
           <Route path="/scenario2" component={Scenario2} />
           <Route path="/scenario3" component={Scenario3} />

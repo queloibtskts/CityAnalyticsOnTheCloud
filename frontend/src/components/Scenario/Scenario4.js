@@ -105,7 +105,7 @@ const Scenario4 = () => {
             <Button onClick={QLD} color="primary">Queensland</Button>
             <Button onClick={NT} color="secondary">Northern Territory</Button>
             <Button onClick={NSW}>New South Wales</Button>
-            <Button onClick={VIC} color="primary">Victoria</Button>
+            <Button onClick={VIC}>Victoria</Button>
             <Button onClick={TAS} color="primary">Tasmania</Button>
             <Button onClick={ACT} color="primary">South Australia</Button>
             <Button onClick={SA} color="primary">Australian Capital Territory</Button>

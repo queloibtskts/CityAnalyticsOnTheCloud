@@ -19,9 +19,9 @@ export default function Description4() {
   return (
     <div>
        <Title>Description and Analysis</Title>
-      <Typography variant="body1" gutterBottom>
-        第四个是每个州含脏话tweets的hashtag的word cloud：对比：不含脏话tweets的hashtag的word cloud<br />
-        相当于每个州两个word clouds （如果数据量不够的话 这个之后还可能会改）
+      <Typography variant="body1" paragraph>
+      This scenario is talking about the word cloud of hashtags with swear words tweets and that without swear words tweets in each state. There are two figures for each state, the left one is the word cloud of hashtags with swear words in tweets, the right one is the word cloud of hashtags without swear words in tweets. From this scenario, it can infer the topics which may make people send vulgar words when talking about them. Furthermore, the emotions of people can be inferred when they are talking about some topics with swear words, it can also show people's attitudes towards this topic. From these graphs, it can be seen that the few states have less hashtags with vulgar words. The reason is because the total number of tweets in these states are quite small, it should take more time to get a large number of tweets to solve this problem.
+
       </Typography>
       <div className={descriptionClasses.seeMore} align="center">
         <Link color="primary" href="#" onClick={preventDefault} >

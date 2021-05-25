@@ -19,8 +19,9 @@ export default function Description2() {
   return (
     <div>
        <Title>Description and Analysis</Title>
-      <Typography variant="body1" gutterBottom>
-        第二个是刚刚说的bar chart：top 3 popular vulgar words in each state
+      <Typography variant="body1" paragraph>
+      The second scenario is to find out the top 3 commonly used vulgar words in each state and count out the frequency of these words being used. From the figure above, different colors represent each state. It can be easy to point out that Victoria, New South Wales and Queensland are the three states which have higher vulgar words used frequency. Perhaps this phenomenon is related to the populations. Because these three states have larger populations than other states, then the frequency of using swear words will be relatively higher. Furthermore, from the figure, in each state, the top three words in the frequency of swear words have “fuck” and its derivatives “fucking”, and the rest one of the top 3 vulgar words  for each state may have some differences. It explains that word “fuck” and its derivatives become the most popular vulgar words in the whole Australia. For the differences between the rest of the top 3 vulgar words for each state, it may be caused by the local dialect or the age of the population being different in each state.
+
       </Typography>
       <div className={descriptionClasses.seeMore} align="center">
         <Link color="primary" href="#" onClick={preventDefault} >
