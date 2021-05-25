@@ -123,7 +123,7 @@ const Dashboard = () => {
             Dashboard
           </Typography>
           <IconButton color="inherit">
-            <Badge badgeContent={3} color="secondary">
+            <Badge badgeContent={5} color="secondary">
               <NotificationsIcon />
             </Badge>
           </IconButton>
