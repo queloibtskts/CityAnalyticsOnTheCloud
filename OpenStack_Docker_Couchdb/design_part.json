@@ -1,0 +1,17 @@
+{
+  "_id": "_design/language",
+  "views": {
+    "countTweets": {
+      "reduce": "_sum",
+      "map": "function (doc) {\n  emit('db', 1);\n}"
+    },
+    "hashtagFreq": {
+      "reduce": "_sum",
+      "map": "function (doc) {\r\n  // if (doc.place && doc.place.full_name) {\r\n  //     var loc_l = doc.place.full_name.toLowerCase();\r\n  //     var loc = doc.place.full_name;\r\n  // }\r\n  // if (doc.user && doc.user.location) {\r\n  //     var loc2_l = doc.user.location.toLowerCase();\r\n  //     var loc2 = doc.user.location;\r\n  // }\r\n  // var stateNotFound = true;\r\n  // var abbres = {'australian capital territory': 'ACT', 'act': 'ACT', 'victoria': 'VIC', 'new south wales': 'NSW', 'northern territory': 'NT', 'queensland': 'QLD', 'tasmania': 'TAS', 'western australia': 'WA', 'south australia': 'SA'};\r\n  // var thisLoc = null;\r\n  // for (var abbre in abbres) {\r\n  //     if  ( ( loc_l && loc_l.includes(abbre) ) || ( loc2_l && loc2_l.includes(abbre) ) ) {\r\n  //         thisLoc = abbres[abbre];\r\n  //         stateNotFound = false;\r\n  //         break;\r\n  //     }\r\n  // }\r\n  // if (stateNotFound) {\r\n  //     for (var abbre1 in abbres) {\r\n  //         if  ( ( loc && loc.includes(abbres[abbre1]) ) || ( loc2 && loc2.includes(abbres[abbre1]) ) ) {\r\n  //             thisLoc = abbres[abbre1];\r\n  //             stateNotFound = false;\r\n  //             break;\r\n  //         }\r\n  //     }\r\n  // }\r\n  // console.log(thisLoc);\r\n  \r\n  if (doc && doc.entities && doc.entities.hashtags) {\r\n      var hashtags_freqs = {};\r\n      var hashtags = doc.entities.hashtags;\r\n      for (var j=0; j < hashtags.length; j++) {\r\n          var hashtag = hashtags[j].text;\r\n          if (Object.keys(hashtags_freqs).includes(hashtag)) {\r\n              hashtags_freqs[hashtag] += 1;\r\n          } else {\r\n              hashtags_freqs[hashtag] = 1;\r\n          }\r\n      }\r\n      emit('db', hashtags_freqs);\r\n  }     \r\n}"
+    },
+    "vulgarWordFreq": {
+      "reduce": "_sum",
+      "map": "function (doc) {\r\n  if (doc && doc.tag && doc.tag.vulgar_words && doc.tag.vulgar_words == 'True') {\r\n      if (doc.tag.vulgar_words_used) {\r\n          var vulgar_words_used = doc.tag.vulgar_words_used;\r\n          var vulgar_words_freqs = {};\r\n          // console.log(vulgar_words_used);\r\n          for (var j=0; j < vulgar_words_used.length; j++) {\r\n              var vulw = vulgar_words_used[j];\r\n              if (Object.keys(vulgar_words_freqs).includes(vulw)) {\r\n                  vulgar_words_freqs[vulw] += 1;\r\n              } else {\r\n                  vulgar_words_freqs[vulw] = 1;\r\n              }\r\n          }\r\n          // console.log(vulgar_words_freqs);\r\n          emit('db', vulgar_words_freqs);\r\n      } else {\r\n          console.log('error1');\r\n      }\r\n    } else {\r\n        console.log('error2');\r\n    }\r\n}"
+    }
+  }
+}

@@ -4,6 +4,76 @@ curl -XGET "http://\<username>:\<password>@\<hostIP>:5984/\<dbName>/_design/\<de
 
 e.g. $ curl -XGET "http://admin:12354@localhost:5984/vulgar_tweet_by_search/_design/language/_view/vulgarWordFreq?group=true"
 
+## View: countTweets
+This MapReduce function counts the tweets from each state.
+
+### Map
+```
+function (doc) {
+  emit('db', 1);
+}
+```
+### Reduce
+_sum
+
+## View: vulgarWordFreq (for partitioned DB)
+
+### Map
+
+```
+function (doc) {
+  if (doc && doc.tag && doc.tag.vulgar_words && doc.tag.vulgar_words == 'True') {
+      if (doc.tag.vulgar_words_used) {
+          var vulgar_words_used = doc.tag.vulgar_words_used;
+          var vulgar_words_freqs = {};
+          // console.log(vulgar_words_used);
+          for (var j=0; j < vulgar_words_used.length; j++) {
+              var vulw = vulgar_words_used[j];
+              if (Object.keys(vulgar_words_freqs).includes(vulw)) {
+                  vulgar_words_freqs[vulw] += 1;
+              } else {
+                  vulgar_words_freqs[vulw] = 1;
+              }
+          }
+          // console.log(vulgar_words_freqs);
+          emit('db', vulgar_words_freqs);
+      } else {
+          console.log('error1');
+      }
+    } else {
+        console.log('error2');
+    }
+}
+```
+
+### Reduce
+_sum
+
+## View: hashtagFreq (for partitioned DB)
+
+### Map
+```
+function (doc) {
+  if (doc && doc.entities && doc.entities.hashtags) {
+      var hashtags_freqs = {};
+      var hashtags = doc.entities.hashtags;
+      for (var j=0; j < hashtags.length; j++) {
+          var hashtag = hashtags[j].text;
+          if (Object.keys(hashtags_freqs).includes(hashtag)) {
+              hashtags_freqs[hashtag] += 1;
+          } else {
+              hashtags_freqs[hashtag] = 1;
+          }
+      }
+      emit('db', hashtags_freqs);
+  }     
+}
+```
+
+### Reduce
+_sum
+
+
 ## View: countTweetByStates
 
 This MapReduce function counts the tweets from each state.
