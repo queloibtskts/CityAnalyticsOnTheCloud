@@ -16,7 +16,7 @@ CORS(app)
 # couch db auth
 # ADMIN_USERNAME = 'admin'
 # ADMIN_PASSWORD = '12345'
-# server = couchdb.Server('http://admin:12354@localhost:5984/')
+#server = couchdb.Server('http://admin:12354@localhost:5984/')
 server = couchdb.Server('http://admin:12345@172.26.131.136:5984/') #use docker - can not connect to couchdb
 # may change 127.0.0.1 to 172.26.134.127
 
@@ -70,7 +70,7 @@ for state in all_states:
 vulgarWordFreqAU = [{'key': 'AU', 'value': vulgarWordFreqAU}]
 vulgarWordFreqAU = view_reformatter(vulgarWordFreqAU,
                                     URL_vulgarWordFreq)
-print(vulgarWordFreqAU)
+
 ########
 
 
