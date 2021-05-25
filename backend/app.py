@@ -16,34 +16,73 @@ CORS(app)
 # couch db auth
 # ADMIN_USERNAME = 'admin'
 # ADMIN_PASSWORD = '12345'
-server = couchdb.Server('http://admin:12345@mycouchdb:5984/') #use docker - can not connect to couchdb
+# server = couchdb.Server('http://admin:12354@localhost:5984/')
+server = couchdb.Server('http://admin:12345@172.26.131.136:5984/') #use docker - can not connect to couchdb
 # may change 127.0.0.1 to 172.26.134.127
 
-vulgarDBNAME = 'vulgar_tweet_by_search'
+vulgarDBNAME = 'vulgar_tweet_by_search2'
 vulgardb = connect_to_database(vulgarDBNAME, server)
 
-cleanDBNAME = 'clean_tweet_by_search'
+cleanDBNAME = 'clean_tweet_by_search2'
 cleandb = connect_to_database(cleanDBNAME, server)
-
-# URL_vulgarWordFreq = 'language/vulgarWordFreq'
+all_states = ['VIC', 'NSW', 'NT', 'WA', 'TAS', 'SA', 'ACT', 'QLD']
+URL_vulgarWordFreq = 'language/vulgarWordFreq'
 URL_vulgarWordFreqAU = 'language/vulgarWordFreqAU'
 URL_hashtagFreq = 'language/hashtagFreq'
 # URL_hashtagFreqAU = 'language/hashtagFreqAU'
 
 # Get rows of views
-# vulgarWordFreq = view_reformatter(vulgardb.view(URL_vulgarWordFreq, group=True).rows,
-#                                   URL_vulgarWordFreq)  # vulgar word frequency in each state
-# vulgarWordFreqTop3 = getTop3VulgarWords(
-#     vulgardb.view(URL_vulgarWordFreq, group=True).rows
-# )  # top3 vulgar word frequency in each state
-vulgarWordFreqAU = view_reformatter(vulgardb.view(URL_vulgarWordFreqAU, group=True).rows,
-                                    URL_vulgarWordFreqAU)  # vulgar word frequency in australia
-vulgar_viewHashtagFreq = view_reformatter(vulgardb.view(URL_hashtagFreq, group=True).rows,
+###test###
+vulgar_viewHashtagFreq = []
+for state in all_states:
+    row = vulgardb.view(URL_hashtagFreq, group=True, partition=state).rows
+    if row:
+        row = row[0]
+        vulgar_viewHashtagFreq.append({'key': state, 'value': row['value']})
+
+clean_viewHashtagFreq = []
+for state in all_states:
+    row = cleandb.view(URL_hashtagFreq, group=True, partition=state).rows
+    if row:
+        row = row[0]
+        clean_viewHashtagFreq.append({'key': state, 'value': row['value']})
+
+vulgar_viewHashtagFreq = view_reformatter(vulgar_viewHashtagFreq,
                                           URL_hashtagFreq, isRemovingNonAscii=True
-                                          )  # hashtag frequency in vulgar tweets from each state
-clean_viewHashtagFreq = view_reformatter(cleandb.view(URL_hashtagFreq, group=True).rows,
+                                          )
+clean_viewHashtagFreq = view_reformatter(clean_viewHashtagFreq,
                                          URL_hashtagFreq, isRemovingNonAscii=True
-                                         )  # hashtag frequency in clean tweets from each state
+                                         )
+
+
+
+
+vulgarWordFreqAU = {}
+for state in all_states:
+    row = vulgardb.view(URL_vulgarWordFreq, group=True, partition=state).rows
+    if row:
+        freq = row[0]['value']
+        for (k, v) in freq.items():
+            if k in vulgarWordFreqAU.keys():
+                vulgarWordFreqAU[k] += v
+            else:
+                vulgarWordFreqAU[k] = v
+vulgarWordFreqAU = [{'key': 'AU', 'value': vulgarWordFreqAU}]
+vulgarWordFreqAU = view_reformatter(vulgarWordFreqAU,
+                                    URL_vulgarWordFreq)
+print(vulgarWordFreqAU)
+########
+
+
+
+# vulgarWordFreqAU = view_reformatter(vulgardb.view(URL_vulgarWordFreqAU, group=True).rows,
+#                                     URL_vulgarWordFreqAU)  # vulgar word frequency in australia
+# vulgar_viewHashtagFreq = view_reformatter(vulgardb.view(URL_hashtagFreq, group=True).rows,
+#                                           URL_hashtagFreq, isRemovingNonAscii=True
+#                                           )  # hashtag frequency in vulgar tweets from each state
+# clean_viewHashtagFreq = view_reformatter(cleandb.view(URL_hashtagFreq, group=True).rows,
+#                                          URL_hashtagFreq, isRemovingNonAscii=True
+#                                          )  # hashtag frequency in clean tweets from each state
 # vulgar_viewHashtagFreqAU = view_reformatter(vulgardb.view(URL_hashtagFreqAU, group=True).rows,
 #                             URL_hashtagFreqAU, isRemovingNonAscii = True) # hashtag frequency in vulgar tweets in australia
 # clean_viewHashtagFreqAU = view_reformatter(cleandb.view(URL_hashtagFreqAU, group=True).rows,
