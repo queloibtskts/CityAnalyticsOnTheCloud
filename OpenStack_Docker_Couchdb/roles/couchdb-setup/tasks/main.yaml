@@ -32,10 +32,10 @@
 
 
 
-- name: Copy design.json from local to remote hosts
+- name: Copy design_part.json from local to remote hosts
   become: yes
   copy:
-    src: design.json
+    src: design_part.json
     dest: /home/ubuntu/
     mode: u=rw
 
