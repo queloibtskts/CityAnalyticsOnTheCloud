@@ -10,7 +10,7 @@ Xingyang Shen 928713
 
 
 ## Video links
-Ansible Deployment and Crawler:  
+Cloud-based solution with dynamic deployment and crawler explanation:  
 https://www.youtube.com/watch?v=Ut3a5CFF46E
 
 Frontend and CouchDB Presentation:  
