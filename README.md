@@ -2,31 +2,33 @@
 
 ## Team Members
 
-Xiaoyi Han 1130315
-Ka Hou Hong 1178062
-Ziyuan Xu 1124236
-Xiaoyue Lin 924655
-Xingyang Shen 928713
+Xiaoyi Han 1130315  
+Ka Hou Hong 1178062  
+Ziyuan Xu 1124236  
+Xiaoyue Lin 924655  
+Xingyang Shen 928713  
+
 
 ## Video links
-Ansible Deployment: 
-Frontend and CouchDB Presentation:
+Ansible Deployment and Crawler:  
+
+Frontend and CouchDB Presentation:  
 
 ## Demo slide
 https://docs.google.com/presentation/d/1gnVthEg6l9-BD5qJXGccGCIrEmOR3MMtdziJS-EXzd4/edit?usp=sharing
 
 ## System Architecture
-![System Architecture](https://tva1.sinaimg.cn/large/008i3skNgy1gqvir3eoamj31720u0dtf.jpg)
+(![Architecture](https://tva1.sinaimg.cn/large/008i3skNgy1gqviqpnywuj31720u0dtf.jpg))
 
 ## For deployment
-    #### First, clone this git repository
-    1. cd /OpenStack_Docker_Couchdb
-    2. sudo ./1-deploy-vm.sh
-       Enter the OpenStack Password
-    3. sudo ./2-deploy-setup.sh
-        Enter the OpenStack Password
-    4. sudo ./3-deploy-crawler.sh
-        Enter the OpenStack Password
+    First, clone this git repository
+    1. cd /OpenStack_Docker_Couchdb  
+    2. sudo ./1-deploy-vm.sh  
+       Enter the OpenStack Password  
+    3. sudo ./2-deploy-setup.sh  
+        Enter the OpenStack Password  
+    4. sudo ./3-deploy-crawler.sh  
+        Enter the OpenStack Password  
 
 ## For development
   ### Frontend
@@ -38,8 +40,10 @@ https://docs.google.com/presentation/d/1gnVthEg6l9-BD5qJXGccGCIrEmOR3MMtdziJS-EX
   ### Crawler
     cd crawler/ docker-compose up
 ## Instance Arrangement
-Instance1: 172.26.131.114
-Instance2: 172.26.131.114
-Instance3: 172.26.131.114
-Instance4: 172.26.131.114
+  [worker]
+    Instance1: 172.26.131.136
+  [crawler]
+    Instance2: 172.26.132.130
+    Instance3: 172.26.128.33
+    Instance4: 172.26.133.27
 
