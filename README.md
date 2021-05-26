@@ -11,8 +11,10 @@ Xingyang Shen 928713
 
 ## Video links
 Ansible Deployment and Crawler:  
+https://www.youtube.com/watch?v=Ut3a5CFF46E
 
 Frontend and CouchDB Presentation:  
+https://www.youtube.com/watch?v=xXDzmZHzU_Y
 
 ## Demo slide
 https://docs.google.com/presentation/d/1gnVthEg6l9-BD5qJXGccGCIrEmOR3MMtdziJS-EXzd4/edit?usp=sharing
