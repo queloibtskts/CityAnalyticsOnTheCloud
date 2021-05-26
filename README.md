@@ -18,7 +18,11 @@ Frontend and CouchDB Presentation:
 https://docs.google.com/presentation/d/1gnVthEg6l9-BD5qJXGccGCIrEmOR3MMtdziJS-EXzd4/edit?usp=sharing
 
 ## System Architecture
-(![Architecture](https://tva1.sinaimg.cn/large/008i3skNgy1gqviqpnywuj31720u0dtf.jpg))
+<object data="https://lucid.app/publicSegments/view/4e668a7c-ecf5-4040-b1a5-6e916a377688" type="System Architecture/pdf" width="700px" height="700px">
+    <embed src="https://lucid.app/publicSegments/view/4e668a7c-ecf5-4040-b1a5-6e916a377688">
+        <p>This browser does not support PDFs. Please download the PDF to view it: <a href="http://yoursite.com/the.pdf">Download PDF</a>.</p>
+    </embed>
+</object>
 
 ## For deployment
     First, clone this git repository
@@ -40,9 +44,7 @@ https://docs.google.com/presentation/d/1gnVthEg6l9-BD5qJXGccGCIrEmOR3MMtdziJS-EX
   ### Crawler
     cd crawler/ docker-compose up
 ## Instance Arrangement
-  [worker]
     Instance1: 172.26.131.136
-  [crawler]
     Instance2: 172.26.132.130
     Instance3: 172.26.128.33
     Instance4: 172.26.133.27
