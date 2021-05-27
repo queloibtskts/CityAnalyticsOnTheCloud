@@ -1,6 +1,9 @@
-# COMP90024_Assignment2
+# City Analytics On The Cloud
+A Cluster and Cloud Computing project focusing on using the UniMelb Research Cloud and Twitter data to tell interesting stories of life in Australian cities.
+We are interested in the swearing in different states. 🙊
 
 ## Team Members
+We are a group of Master students from the University of Melbourne.
 
 Xiaoyi Han 1130315  
 Ka Hou Hong 1178062  
@@ -9,11 +12,11 @@ Xiaoyue Lin 924655
 Xingyang Shen 928713  
 
 
-## Video links
+## Demo Video links
 Cloud-based solution with dynamic deployment and crawler explanation:  
 https://www.youtube.com/watch?v=Ut3a5CFF46E
 
-Frontend and CouchDB Presentation:  
+CouchDB and Frontend analytics presentation:  
 https://www.youtube.com/watch?v=xXDzmZHzU_Y
 
 ## Demo slide
