@@ -5,11 +5,11 @@ We are interested in the swearing in different states. 🙊
 ## Team Members
 We are a group of Master students from the University of Melbourne.
 
-Xiaoyi Han 1130315  
-Ka Hou Hong 1178062  
-Ziyuan Xu 1124236  
-Xiaoyue Lin 924655  
-Xingyang Shen 928713  
+Xiaoyi Han
+Ka Hou Hong 
+Ziyuan Xu 
+Xiaoyue Lin 
+Xingyang Shen
 
 
 ## Demo Video links
