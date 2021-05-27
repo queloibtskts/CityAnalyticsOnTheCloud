@@ -7,7 +7,7 @@ We are a group of Master students from the University of Melbourne.
 
 Xiaoyi Han
 
-Ka Hou Hong 
+Ka Hou Hong https://www.linkedin.com/in/ka-hou-hong-47462a14a/
 
 Ziyuan Xu https://www.linkedin.com/in/lengary/
 
