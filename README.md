@@ -5,14 +5,14 @@ We are interested in the swearing in different states. 🙊
 ## Team Members
 We are a group of Master students from the University of Melbourne.
 
-<a href = "https://github.com/Tanu-N-Prabhu/Python/graphs/contributors">
-  <img src = "https://contrib.rocks/image?repo = erichong0815/COMP90024_Assignment2"/>
-</a>
-
 Xiaoyi Han
+
 Ka Hou Hong 
+
 Ziyuan Xu 
+
 Xiaoyue Lin 
+
 Xingyang Shen
 
 
