@@ -1,6 +1,6 @@
 # City Analytics On The Cloud
 A Cluster and Cloud Computing project focusing on using the UniMelb Research Cloud and Twitter data to tell interesting stories of life in Australian cities.
-We are interested in the swearing in different states. 🙊
+We are interested in swearing. 🙊
 
 ## Team Members
 We are a group of Master students from the University of Melbourne.
