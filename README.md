@@ -9,9 +9,9 @@ Xiaoyi Han
 
 Ka Hou Hong 
 
-Ziyuan Xu 
+Ziyuan Xu https://www.linkedin.com/in/lengary/
 
-Xiaoyue Lin 
+Xiaoyue Lin https://www.linkedin.com/in/xiaoyue-chloe-lin-9ba54814b/
 
 Xingyang Shen
 
