@@ -18,7 +18,7 @@ Ka Hou Hong https://www.linkedin.com/in/ka-hou-hong-47462a14a/
 
 Ziyuan Xu https://www.linkedin.com/in/lengary/
 
-Xiaoyue Lin https://www.linkedin.com/in/xiaoyue-lin/
+Xiaoyue Lin https://www.linkedin.com/in/xiaoyue-lin-chloe/
 
 Xingyang Shen
 
