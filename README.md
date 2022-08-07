@@ -22,6 +22,8 @@ Xiaoyue Lin https://www.linkedin.com/in/xiaoyue-lin-chloe/
 
 Xingyang Shen
 
+## System Architecture
+![System Architecture](https://tva1.sinaimg.cn/large/008i3skNgy1gqvir3eoamj31720u0dtf.jpg)
 
 ## Demo Video links
 Cloud-based solution with dynamic deployment and crawler explanation:  
@@ -32,9 +34,6 @@ https://www.youtube.com/watch?v=xXDzmZHzU_Y
 
 ## Demo slide
 https://docs.google.com/presentation/d/1gnVthEg6l9-BD5qJXGccGCIrEmOR3MMtdziJS-EXzd4/edit?usp=sharing
-
-## System Architecture
-![System Architecture](https://tva1.sinaimg.cn/large/008i3skNgy1gqvir3eoamj31720u0dtf.jpg)
 
 ## For deployment
     First, clone this git repository
