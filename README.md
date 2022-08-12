@@ -1,26 +1,22 @@
 # City Analytics On The Cloud
-A Cluster and Cloud Computing project focusing on using the UniMelb Research Cloud and Twitter data to tell interesting stories of life in Australian cities.
-We are interested in swearing. 🙊
+A Cluster and Cloud Computing project focusing on using the UniMelb Research Cloud and Twitter data to tell interesting stories of life in Australian cities.\
+We are interested in (studying) swearing. 🙊
 
 - Carried out a variety of social media data analytics scenarios related to profanity 
 - Developed a Cloud-based solution that exploited a multitude of virtual machines across the Melbourne Research Cloud (MRC) for mining and storing 10 thousand+ tweets 
 - Built a Twitter harvester using Python3 and Twitter APIs
 - Developed analytic scenarios using the MapReduce capabilities offered by CouchDB for social media analytics, and visualising data using React, Material-UI and Tableau JavaScript API on the front-end.
 - Deployed the application (including CouchDB, the harvester and the front-end web application) to MRC servers using Ansible, Docker
-
+- See project poster: https://www.canva.com/design/DAEmVFPZFmc/nQjew5bQIDJLhOkSOoOSZg/view?utm_content=DAEmVFPZFmc&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton
 
 ## Team Members
 We are a group of Master students from the University of Melbourne.
 
-Xiaoyi Han
-
-Ka Hou Hong https://www.linkedin.com/in/ka-hou-hong-47462a14a/
-
-Ziyuan Xu https://www.linkedin.com/in/lengary/
-
-Xiaoyue Lin https://www.linkedin.com/in/xiaoyue-lin-chloe/
-
-Xingyang Shen
+- Xiaoyi Han
+- Ka Hou Hong https://www.linkedin.com/in/ka-hou-hong-47462a14a/
+- Ziyuan Xu https://www.linkedin.com/in/lengary/
+- Xiaoyue Lin https://www.linkedin.com/in/xiaoyue-lin-chloe/
+- Xingyang Shen
 
 ## System Architecture
 ![System Architecture](https://tva1.sinaimg.cn/large/008i3skNgy1gqvir3eoamj31720u0dtf.jpg)
